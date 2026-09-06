@@ -1,992 +1,523 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candidate Screening Platform</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #f6f7fb;
-            color: #172033;
-        }
-
-        header {
-            height: 72px;
-            background: #ffffff;
-            border-bottom: 1px solid #e7e9ef;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 36px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .logo {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: #172033;
-            color: white;
-            display: grid;
-            place-items: center;
-            font-weight: 800;
-        }
-
-        .role {
-            color: #687086;
-            font-size: 14px;
-        }
-
-        main {
-            max-width: 1400px;
-            margin: auto;
-            padding: 32px 36px;
-        }
-
-        .page-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 28px;
-        }
-
-        h1 {
-            font-size: 30px;
-            margin-bottom: 7px;
-        }
-
-        .subtitle {
-            color: #737b8f;
-        }
-
-        .job-card {
-            background: white;
-            border: 1px solid #e7e9ef;
-            border-radius: 14px;
-            padding: 22px;
-            margin-bottom: 22px;
-        }
-
-        .job-card strong {
-            font-size: 18px;
-        }
-
-        .job-id {
-            color: #7c8497;
-            font-size: 13px;
-            margin-top: 5px;
-        }
-
-        .actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 18px;
-            flex-wrap: wrap;
-        }
-
-        button {
-            border: none;
-            border-radius: 9px;
-            padding: 10px 16px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .primary {
-            background: #172033;
-            color: white;
-        }
-
-        .secondary {
-            background: #eef1f6;
-            color: #273044;
-        }
-
-        button:hover {
-            opacity: .9;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-bottom: 22px;
-        }
-
-        .stat {
-            background: white;
-            border: 1px solid #e7e9ef;
-            border-radius: 14px;
-            padding: 20px;
-        }
-
-        .stat-label {
-            color: #7a8295;
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-
-        .stat-value {
-            font-size: 27px;
-            font-weight: 750;
-        }
-
-        .content {
-            display: grid;
-            grid-template-columns: 1.65fr 1fr;
-            gap: 22px;
-        }
-
-        .panel {
-            background: white;
-            border: 1px solid #e7e9ef;
-            border-radius: 14px;
-            overflow: hidden;
-        }
-
-        .panel-header {
-            padding: 20px 22px;
-            border-bottom: 1px solid #e7e9ef;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .panel-header h2 {
-            font-size: 17px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            text-align: left;
-            color: #7b8395;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: .04em;
-            padding: 13px 18px;
-            background: #fafbfc;
-        }
-
-        td {
-            padding: 15px 18px;
-            border-top: 1px solid #eef0f4;
-            font-size: 14px;
-        }
-
-        tbody tr {
-            cursor: pointer;
-            transition: background .15s;
-        }
-
-        tbody tr:hover {
-            background: #f7f8fb;
-        }
-
-        tbody tr.selected {
-            background: #eef2f8;
-        }
-
-        .candidate-name {
-            font-weight: 650;
-        }
-
-        .score {
-            font-weight: 750;
-        }
-
-        .badge {
-            display: inline-flex;
-            padding: 5px 9px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .shortlist {
-            background: #e8f7ee;
-            color: #187341;
-        }
-
-        .borderline {
-            background: #fff4d9;
-            color: #936b00;
-        }
-
-        .reject {
-            background: #fdebec;
-            color: #b52b35;
-        }
-
-        .detail {
-            padding: 22px;
-        }
-
-        .candidate-heading {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 22px;
-        }
-
-        .candidate-heading h2 {
-            font-size: 22px;
-        }
-
-        .candidate-email {
-            color: #7b8395;
-            font-size: 13px;
-            margin-top: 5px;
-        }
-
-        .final-score {
-            text-align: right;
-        }
-
-        .final-score span {
-            display: block;
-            color: #7b8395;
-            font-size: 12px;
-        }
-
-        .final-score strong {
-            font-size: 32px;
-        }
-
-        .metric {
-            margin: 17px 0;
-        }
-
-        .metric-top {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            margin-bottom: 7px;
-        }
-
-        .bar {
-            height: 8px;
-            background: #edf0f4;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .bar-fill {
-            height: 100%;
-            background: #172033;
-            border-radius: 8px;
-        }
-
-        .detail-actions {
-            display: flex;
-            gap: 9px;
-            margin-top: 25px;
-        }
-
-        .empty {
-            padding: 50px 20px;
-            text-align: center;
-            color: #81899a;
-        }
-
-        .loading {
-            color: #7b8395;
-            font-size: 14px;
-        }
-
-        /* Modal */
-
-        .modal-backdrop {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(12, 18, 30, .45);
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            z-index: 10;
-        }
-
-        .modal-backdrop.show {
-            display: flex;
-        }
-
-        .modal {
-            background: white;
-            width: min(500px, 100%);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 20px 60px rgba(0,0,0,.2);
-        }
-
-        .modal h2 {
-            margin-bottom: 5px;
-        }
-
-        .modal-subtitle {
-            color: #7b8395;
-            font-size: 13px;
-            margin-bottom: 22px;
-        }
-
-        .field {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: 650;
-            margin-bottom: 6px;
-        }
-
-        input {
-            width: 100%;
-            border: 1px solid #dce0e8;
-            border-radius: 8px;
-            padding: 11px;
-            font-size: 14px;
-        }
-
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 9px;
-            margin-top: 22px;
-        }
-
-        .success-box {
-            background: #edf9f2;
-            border: 1px solid #c9ecd8;
-            color: #176b3d;
-            border-radius: 10px;
-            padding: 14px;
-            margin-top: 15px;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .success-box a {
-            color: inherit;
-            font-weight: 700;
-        }
-
-        @media (max-width: 1000px) {
-            .content {
-                grid-template-columns: 1fr;
-            }
-
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 650px) {
-            main {
-                padding: 20px;
-            }
-
-            header {
-                padding: 0 20px;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Candidate Screening Platform</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fb;
+      color: #17233d;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .topbar {
+      height: 74px;
+      background: white;
+      border-bottom: 1px solid #e7ebf2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+    .brand { display: flex; align-items: center; gap: 14px; font-size: 22px; font-weight: 800; }
+    .logo {
+      width: 44px; height: 44px; border-radius: 12px; background: #18243d; color: white;
+      display: grid; place-items: center; font-weight: 900;
+    }
+    .top-label { color: #6d7890; font-size: 14px; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 34px 28px 60px; }
+    h1 { margin: 0; font-size: 34px; letter-spacing: -0.8px; }
+    .subtitle { color: #72809a; margin: 8px 0 28px; font-size: 16px; }
+    .card {
+      background: white; border: 1px solid #e5e9f0; border-radius: 16px;
+      box-shadow: 0 4px 18px rgba(25, 38, 65, .04);
+    }
+    .pipeline { padding: 24px; margin-bottom: 22px; }
+    .job-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .job-title { font-size: 20px; font-weight: 800; }
+    .job-id { color: #8190a8; font-size: 13px; margin-top: 5px; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    .btn {
+      border: 0; border-radius: 10px; padding: 11px 16px; font-weight: 700;
+      background: #edf1f7; color: #18243d;
+    }
+    .btn:hover { filter: brightness(.97); }
+    .btn.primary { background: #18243d; color: white; }
+    .btn.success { background: #e8f7ef; color: #167348; }
+    .btn.small { padding: 8px 11px; font-size: 13px; }
+    .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 22px; }
+    .upload-card { padding: 20px; }
+    .upload-card h3 { margin: 0 0 6px; font-size: 17px; }
+    .upload-card p { margin: 0 0 15px; color: #78859d; font-size: 13px; }
+    .file-row { display: flex; gap: 10px; align-items: center; }
+    input[type=file] {
+      width: 100%; padding: 10px; border: 1px dashed #cbd3e0; border-radius: 10px;
+      background: #fafbfc; color: #68758d;
+    }
+    .status {
+      margin-top: 10px; min-height: 20px; color: #68758d; font-size: 13px;
+    }
+    .status.ok { color: #18764d; }
+    .status.err { color: #b42318; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 22px; }
+    .stat { padding: 22px; }
+    .stat-label { color: #71809a; font-size: 13px; }
+    .stat-value { margin-top: 10px; font-size: 30px; font-weight: 800; }
+    .main-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(340px, .9fr); gap: 22px; }
+    .section { padding: 24px; min-height: 400px; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .section-title { font-size: 18px; font-weight: 800; }
+    .muted { color: #7a879e; font-size: 13px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      text-align: left; padding: 12px 10px; font-size: 11px; color: #7c899f;
+      text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid #e9edf3;
+    }
+    td { padding: 14px 10px; border-bottom: 1px solid #eef1f5; font-size: 13px; }
+    tr.candidate-row { cursor: pointer; }
+    tr.candidate-row:hover { background: #fafbfe; }
+    .rank { font-weight: 800; }
+    .candidate-name { font-weight: 750; }
+    .score { font-weight: 800; }
+    .badge {
+      display: inline-block; border-radius: 999px; padding: 5px 9px; font-size: 11px; font-weight: 800;
+      text-transform: capitalize;
+    }
+    .badge.shortlist { background: #e7f7ee; color: #167348; }
+    .badge.borderline { background: #fff5dc; color: #996b00; }
+    .badge.reject { background: #fdeaea; color: #b42318; }
+    .empty { padding: 70px 20px; text-align: center; color: #8490a5; }
+    .details { color: #5f6d85; font-size: 14px; line-height: 1.55; }
+    .candidate-header { display: flex; justify-content: space-between; gap: 15px; align-items: flex-start; }
+    .candidate-header h2 { margin: 0; color: #17233d; font-size: 23px; }
+    .score-block { margin-top: 22px; }
+    .score-line { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+    .bar { height: 8px; background: #edf0f5; border-radius: 99px; overflow: hidden; }
+    .bar > div { height: 100%; background: #18243d; border-radius: 99px; }
+    .detail-group { margin-top: 20px; }
+    .detail-group h4 { margin: 0 0 8px; color: #17233d; }
+    .detail-group ul { margin: 0; padding-left: 20px; }
+    .modal {
+      position: fixed; inset: 0; background: rgba(14, 23, 41, .48); display: none;
+      align-items: center; justify-content: center; padding: 20px; z-index: 20;
+    }
+    .modal.open { display: flex; }
+    .modal-card { width: min(500px, 100%); background: white; border-radius: 18px; padding: 26px; }
+    .modal-card h2 { margin-top: 0; }
+    .field { margin: 14px 0; }
+    .field label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 7px; }
+    .field input {
+      width: 100%; border: 1px solid #d7dce6; border-radius: 9px; padding: 10px;
+    }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 20px; }
+    .toast {
+      position: fixed; right: 22px; bottom: 22px; background: #18243d; color: white;
+      padding: 12px 16px; border-radius: 10px; display: none; z-index: 30; max-width: 420px;
+      font-size: 13px;
+    }
+    .toast.show { display: block; }
+    @media (max-width: 950px) {
+      .main-grid, .upload-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .job-row { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .topbar { padding: 0 18px; }
+      .container { padding: 24px 15px; }
+      .stats { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
+  <header class="topbar">
+    <div class="brand"><div class="logo">CS</div><span>Candidate Screening Platform</span></div>
+    <div class="top-label">Recruiter Dashboard</div>
+  </header>
 
-<header>
-    <div class="brand">
-        <div class="logo">CS</div>
-        Candidate Screening Platform
-    </div>
+  <main class="container">
+    <h1>Candidate Pipeline</h1>
+    <div class="subtitle">AI-powered candidate evaluation and interview automation</div>
 
-    <div class="role">Recruiter Dashboard</div>
-</header>
-
-<main>
-
-    <div class="page-title">
+    <section class="card pipeline">
+      <div class="job-row">
         <div>
-            <h1>Candidate Pipeline</h1>
-            <div class="subtitle">
-                AI-powered candidate evaluation and interview automation
-            </div>
+          <div class="job-title" id="jobTitle">AI Engineer</div>
+          <div class="job-id">Job ID: <span id="jobIdLabel">1</span></div>
         </div>
-    </div>
+        <div class="muted">End-to-end screening workflow</div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" onclick="processResumes()">Process Resumes</button>
+        <button class="btn" onclick="runEvaluation()">Run AI Evaluation</button>
+        <button class="btn" onclick="analyzeGithub()">Analyze GitHub</button>
+        <button class="btn" onclick="loadRankings()">Refresh Ranking</button>
+      </div>
+      <div id="pipelineStatus" class="status"></div>
+    </section>
 
-    <section class="job-card">
-        <strong>AI Engineer</strong>
-        <div class="job-id">Job ID: 1</div>
-
-        <div class="actions">
-            <button class="secondary" onclick="processResumes()">
-                Process Resumes
-            </button>
-
-            <button class="secondary" onclick="runEvaluation()">
-                Run AI Evaluation
-            </button>
-
-            <button class="secondary" onclick="analyzeGithub()">
-                Analyze GitHub
-            </button>
-
-            <button class="primary" onclick="loadRanking()">
-                Refresh Ranking
-            </button>
+    <section class="upload-grid">
+      <div class="card upload-card">
+        <h3>📥 Candidate Dataset</h3>
+        <p>Upload the candidate CSV or XLSX dataset to populate the screening pipeline.</p>
+        <div class="file-row">
+          <input id="candidateFile" type="file" accept=".csv,.xlsx,.xls" />
+          <button class="btn primary small" onclick="uploadCandidates()">Upload</button>
         </div>
+        <div id="candidateUploadStatus" class="status"></div>
+      </div>
+
+      <div class="card upload-card">
+        <h3>🧪 Test Results</h3>
+        <p>Upload logical aptitude and coding test results in CSV or XLSX format.</p>
+        <div class="file-row">
+          <input id="testFile" type="file" accept=".csv,.xlsx,.xls" />
+          <button class="btn primary small" onclick="uploadTestResults()">Upload</button>
+        </div>
+        <div id="testUploadStatus" class="status"></div>
+      </div>
     </section>
 
     <section class="stats">
-        <div class="stat">
-            <div class="stat-label">Candidates Evaluated</div>
-            <div class="stat-value" id="totalCandidates">—</div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-label">Shortlisted</div>
-            <div class="stat-value" id="shortlisted">—</div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-label">Top Score</div>
-            <div class="stat-value" id="topScore">—</div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-label">Interviews</div>
-            <div class="stat-value" id="interviews">0</div>
-        </div>
+      <div class="card stat"><div class="stat-label">Candidates Evaluated</div><div class="stat-value" id="candidateCount">—</div></div>
+      <div class="card stat"><div class="stat-label">Shortlisted</div><div class="stat-value" id="shortlistCount">—</div></div>
+      <div class="card stat"><div class="stat-label">Top Score</div><div class="stat-value" id="topScore">—</div></div>
+      <div class="card stat"><div class="stat-label">Interviews</div><div class="stat-value" id="interviewCount">0</div></div>
     </section>
 
-    <section class="content">
-
-        <div class="panel">
-            <div class="panel-header">
-                <h2>Candidate Rankings</h2>
-                <span class="loading" id="tableStatus"></span>
-            </div>
-
-            <div id="tableContainer">
-                <div class="empty">
-                    Loading candidates...
-                </div>
-            </div>
+    <section class="main-grid">
+      <div class="card section">
+        <div class="section-header">
+          <div class="section-title">Candidate Rankings</div>
+          <div class="muted" id="rankingStatus">Loading...</div>
         </div>
-
-        <div class="panel">
-            <div class="panel-header">
-                <h2>Candidate Details</h2>
-            </div>
-
-            <div id="details">
-                <div class="empty">
-                    Select a candidate to view details.
-                </div>
-            </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th><th>Candidate</th><th>AI</th><th>GitHub</th><th>Test</th><th>Final</th><th>Recommendation</th>
+              </tr>
+            </thead>
+            <tbody id="rankingBody">
+              <tr><td colspan="7"><div class="empty">Loading rankings...</div></td></tr>
+            </tbody>
+          </table>
         </div>
+      </div>
 
+      <div class="card section">
+        <div class="section-header">
+          <div class="section-title">Candidate Details</div>
+        </div>
+        <div id="candidateDetails" class="details">
+          <div class="empty">Select a candidate to view details.</div>
+        </div>
+      </div>
     </section>
+  </main>
 
-</main>
-
-<!-- Schedule Modal -->
-
-<div class="modal-backdrop" id="scheduleModal">
-
-    <div class="modal">
-
-        <h2>Schedule Interview</h2>
-
-        <div class="modal-subtitle">
-            Create a Google Calendar event and generate a Google Meet link.
-        </div>
-
-        <div class="field">
-            <label>Candidate</label>
-            <input id="scheduleName" readonly>
-        </div>
-
-        <div class="field">
-            <label>Email</label>
-            <input id="scheduleEmail" readonly>
-        </div>
-
-        <div class="field">
-            <label>Start time</label>
-            <input id="scheduleStart" type="datetime-local">
-        </div>
-
-        <div class="field">
-            <label>End time</label>
-            <input id="scheduleEnd" type="datetime-local">
-        </div>
-
-        <div id="scheduleResult"></div>
-
-        <div class="modal-actions">
-            <button class="secondary" onclick="closeSchedule()">
-                Cancel
-            </button>
-
-            <button class="primary" onclick="scheduleInterview()">
-                Schedule Interview
-            </button>
-        </div>
-
+  <div class="modal" id="scheduleModal">
+    <div class="modal-card">
+      <h2>Schedule Interview</h2>
+      <div class="muted" id="scheduleCandidate"></div>
+      <div class="field">
+        <label>Start time</label>
+        <input id="startTime" type="datetime-local" />
+      </div>
+      <div class="field">
+        <label>End time</label>
+        <input id="endTime" type="datetime-local" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn" onclick="closeSchedule()">Cancel</button>
+        <button class="btn primary" onclick="scheduleInterview()">Create Google Meet</button>
+      </div>
+      <div id="scheduleStatus" class="status"></div>
     </div>
+  </div>
 
-</div>
+  <div class="toast" id="toast"></div>
 
 <script>
+  const JOB_ID = 1;
+  let rankings = [];
+  let selectedCandidate = null;
+  let scheduledInterviews = 0;
 
-const JOB_ID = 1;
-let rankings = [];
-let selectedCandidate = null;
+  function setStatus(id, message, ok = false) {
+    const el = document.getElementById(id);
+    el.textContent = message || "";
+    el.className = "status " + (ok ? "ok" : (message && message.toLowerCase().includes("failed") ? "err" : ""));
+  }
 
+  function toast(message) {
+    const el = document.getElementById("toast");
+    el.textContent = message;
+    el.classList.add("show");
+    setTimeout(() => el.classList.remove("show"), 3500);
+  }
 
-async function loadRanking() {
-
-    const status = document.getElementById("tableStatus");
-    status.textContent = "Loading...";
-
-    try {
-
-        const response = await fetch(
-            `/api/screening/ranking/${JOB_ID}`
-        );
-
-        if (!response.ok) {
-            throw new Error("Unable to load rankings");
-        }
-
-        const data = await response.json();
-
-        rankings = data.rankings || [];
-
-        renderTable();
-        updateStats();
-
-        if (rankings.length > 0) {
-            selectCandidate(rankings[0].candidate_id);
-        }
-
-        status.textContent = `${rankings.length} candidates`;
-
-    } catch (error) {
-
-        status.textContent = "Failed to load";
-
-        document.getElementById("tableContainer").innerHTML =
-            `<div class="empty">${error.message}</div>`;
+  async function parseResponse(response) {
+    const text = await response.text();
+    let data = {};
+    try { data = text ? JSON.parse(text) : {}; } catch (_) { data = { detail: text }; }
+    if (!response.ok) {
+      throw new Error(data.detail || data.message || `Request failed (${response.status})`);
     }
-}
+    return data;
+  }
 
+  async function uploadFile(inputId, endpoint, statusId) {
+    const input = document.getElementById(inputId);
+    if (!input.files.length) {
+      setStatus(statusId, "Please choose a CSV or XLSX file.");
+      return;
+    }
 
-function renderTable() {
+    const file = input.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+
+    setStatus(statusId, "Uploading...");
+    try {
+      const response = await fetch(endpoint, { method: "POST", body: formData });
+      const data = await parseResponse(response);
+      const imported = data.imported ?? data.created ?? 0;
+      const updated = data.updated ?? 0;
+      const skipped = data.skipped ?? 0;
+      const total = data.total_rows ?? data.total ?? "—";
+      setStatus(statusId, `Uploaded ${total} rows • imported/created: ${imported} • updated: ${updated} • skipped: ${skipped}`, true);
+      toast("Dataset uploaded successfully.");
+      await loadRankings();
+    } catch (error) {
+      setStatus(statusId, `Failed: ${error.message}`);
+      toast(`Upload failed: ${error.message}`);
+    }
+  }
+
+  function uploadCandidates() {
+    uploadFile("candidateFile", "/api/candidates/upload", "candidateUploadStatus");
+  }
+
+  function uploadTestResults() {
+    uploadFile("testFile", "/api/test-results/upload", "testUploadStatus");
+  }
+
+  async function processResumes() {
+    setStatus("pipelineStatus", "Processing candidate resumes...");
+    try {
+      const response = await fetch(`/api/jobs/${JOB_ID}/process-resumes`, { method: "POST" });
+      const data = await parseResponse(response);
+      setStatus("pipelineStatus", `Resume processing complete. Processed: ${data.processed ?? "—"} • Failed: ${data.failed ?? 0}`, true);
+      toast("Resume processing completed.");
+      await loadRankings();
+    } catch (error) {
+      setStatus("pipelineStatus", `Failed: ${error.message}`);
+    }
+  }
+
+  async function runEvaluation() {
+    setStatus("pipelineStatus", "AI evaluation queued. This runs in the background...");
+    try {
+      const response = await fetch(`/api/jobs/${JOB_ID}/evaluate`, { method: "POST" });
+      const data = await parseResponse(response);
+      setStatus("pipelineStatus", `${data.message || "AI evaluation started."} Refresh rankings after processing finishes.`, true);
+      toast("AI evaluation started.");
+    } catch (error) {
+      setStatus("pipelineStatus", `Failed: ${error.message}`);
+    }
+  }
+
+  async function analyzeGithub() {
+    setStatus("pipelineStatus", "Analyzing candidate GitHub repositories...");
+    try {
+      const response = await fetch("/api/screening/github", { method: "POST" });
+      const data = await parseResponse(response);
+      const count = data.analyzed ?? data.processed ?? data.total ?? "selected candidates";
+      setStatus("pipelineStatus", `GitHub analysis completed for ${count} candidates.`, true);
+      toast("GitHub analysis completed.");
+      await loadRankings();
+    } catch (error) {
+      setStatus("pipelineStatus", `Failed: ${error.message}`);
+    }
+  }
+
+  function numeric(value) {
+    return value === null || value === undefined || value === "" ? null : Number(value);
+  }
+
+  async function loadRankings() {
+    document.getElementById("rankingStatus").textContent = "Loading...";
+    try {
+      const response = await fetch(`/api/screening/ranking/${JOB_ID}`);
+      const data = await parseResponse(response);
+      rankings = Array.isArray(data) ? data : (data.rankings || []);
+      renderRankings();
+      document.getElementById("rankingStatus").textContent = `${rankings.length} candidates`;
+    } catch (error) {
+      document.getElementById("rankingStatus").textContent = "Failed to load";
+      document.getElementById("rankingBody").innerHTML =
+        `<tr><td colspan="7"><div class="empty">Unable to load rankings.<br><small>${escapeHtml(error.message)}</small></div></td></tr>`;
+      document.getElementById("candidateCount").textContent = "—";
+      document.getElementById("shortlistCount").textContent = "—";
+      document.getElementById("topScore").textContent = "—";
+    }
+  }
+
+  function renderRankings() {
+    const body = document.getElementById("rankingBody");
 
     if (!rankings.length) {
-
-        document.getElementById("tableContainer").innerHTML =
-            `<div class="empty">No evaluated candidates yet.</div>`;
-
-        return;
+      body.innerHTML = `<tr><td colspan="7"><div class="empty">No candidate rankings yet.<br>Upload the candidate dataset to begin.</div></td></tr>`;
+      document.getElementById("candidateCount").textContent = "0";
+      document.getElementById("shortlistCount").textContent = "0";
+      document.getElementById("topScore").textContent = "—";
+      return;
     }
 
-    let html = `
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Candidate</th>
-                    <th>AI</th>
-                    <th>GitHub</th>
-                    <th>Test</th>
-                    <th>Final</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
+    const shortlisted = rankings.filter(r => String(r.recommendation || "").toLowerCase() === "shortlist").length;
+    const top = numeric(rankings[0].final_score);
 
-    for (const candidate of rankings) {
+    document.getElementById("candidateCount").textContent = rankings.length;
+    document.getElementById("shortlistCount").textContent = shortlisted;
+    document.getElementById("topScore").textContent = top === null ? "—" : top.toFixed(2);
 
-        const recommendation =
-            candidate.recommendation || "borderline";
+    body.innerHTML = rankings.map((r, index) => {
+      const recommendation = String(r.recommendation || "pending").toLowerCase();
+      const github = numeric(r.github_score);
+      const test = numeric(r.test_score);
+      const ai = numeric(r.ai_score);
+      const finalScore = numeric(r.final_score);
+      return `
+        <tr class="candidate-row" onclick="showCandidate(${index})">
+          <td class="rank">#${r.rank ?? index + 1}</td>
+          <td>
+            <div class="candidate-name">${escapeHtml(r.candidate_name || "Unknown")}</div>
+            <div class="muted">${escapeHtml(r.email || "")}</div>
+          </td>
+          <td>${formatScore(ai)}</td>
+          <td>${formatScore(github)}</td>
+          <td>${formatScore(test)}</td>
+          <td class="score">${formatScore(finalScore)}</td>
+          <td><span class="badge ${recommendation}">${escapeHtml(recommendation)}</span></td>
+        </tr>`;
+    }).join("");
+  }
 
-        html += `
-            <tr
-                id="candidate-${candidate.candidate_id}"
-                onclick="selectCandidate(${candidate.candidate_id})"
-            >
-                <td><strong>#${candidate.rank}</strong></td>
+  function showCandidate(index) {
+    selectedCandidate = rankings[index];
+    const r = selectedCandidate;
+    const ai = numeric(r.ai_score), github = numeric(r.github_score), test = numeric(r.test_score), finalScore = numeric(r.final_score);
+    const recommendation = String(r.recommendation || "pending").toLowerCase();
 
-                <td>
-                    <div class="candidate-name">
-                        ${escapeHtml(candidate.candidate_name)}
-                    </div>
-                </td>
-
-                <td>${formatScore(candidate.ai_score)}</td>
-
-                <td>${formatScore(candidate.github_score)}</td>
-
-                <td>${formatScore(candidate.test_score)}</td>
-
-                <td class="score">
-                    ${formatScore(candidate.final_score)}
-                </td>
-
-                <td>
-                    <span class="badge ${recommendation}">
-                        ${recommendation}
-                    </span>
-                </td>
-            </tr>
-        `;
-    }
-
-    html += `
-            </tbody>
-        </table>
-    `;
-
-    document.getElementById("tableContainer").innerHTML = html;
-}
-
-
-function selectCandidate(candidateId) {
-
-    selectedCandidate =
-        rankings.find(
-            candidate => candidate.candidate_id === candidateId
-        );
-
-    if (!selectedCandidate) return;
-
-    document.querySelectorAll("tbody tr").forEach(
-        row => row.classList.remove("selected")
-    );
-
-    const row =
-        document.getElementById(`candidate-${candidateId}`);
-
-    if (row) {
-        row.classList.add("selected");
-    }
-
-    renderDetails();
-}
-
-
-function renderDetails() {
-
-    const c = selectedCandidate;
-
-    const recommendation =
-        c.recommendation || "borderline";
-
-    document.getElementById("details").innerHTML = `
-
-        <div class="detail">
-
-            <div class="candidate-heading">
-
-                <div>
-                    <h2>${escapeHtml(c.candidate_name)}</h2>
-
-                    <div class="candidate-email">
-                        ${escapeHtml(c.email)}
-                    </div>
-                </div>
-
-                <div class="final-score">
-                    <span>FINAL SCORE</span>
-                    <strong>${formatScore(c.final_score)}</strong>
-                </div>
-
-            </div>
-
-            <span class="badge ${recommendation}">
-                ${recommendation}
-            </span>
-
-            ${metric(
-                "AI / JD Relevance",
-                c.ai_score
-            )}
-
-            ${metric(
-                "GitHub",
-                c.github_score
-            )}
-
-            ${metric(
-                "Test Performance",
-                c.test_score
-            )}
-
-            <div class="detail-actions">
-
-                <button
-                    class="primary"
-                    onclick="openSchedule()"
-                >
-                    Schedule Interview
-                </button>
-
-            </div>
-
+    document.getElementById("candidateDetails").innerHTML = `
+      <div class="candidate-header">
+        <div>
+          <h2>${escapeHtml(r.candidate_name || "Unknown")}</h2>
+          <div class="muted">${escapeHtml(r.email || "")}</div>
         </div>
+        <span class="badge ${recommendation}">${escapeHtml(recommendation)}</span>
+      </div>
+
+      <div class="score-block">
+        ${scoreBar("Final Score", finalScore)}
+        ${scoreBar("AI Evaluation", ai)}
+        ${scoreBar("GitHub", github)}
+        ${scoreBar("Test Performance", test)}
+      </div>
+
+      <div class="detail-group">
+        <h4>Ranking</h4>
+        <div>Rank: <strong>#${r.rank ?? "—"}</strong></div>
+        <div>Final score: <strong>${formatScore(finalScore)}</strong></div>
+      </div>
+
+      <div class="detail-group">
+        <h4>Interview</h4>
+        <button class="btn primary small" onclick="openSchedule()">Schedule interview + Google Meet</button>
+      </div>
     `;
-}
+  }
 
-
-function metric(label, value) {
-
-    const safeValue =
-        value === null || value === undefined
-            ? 0
-            : Number(value);
-
-    const display =
-        value === null || value === undefined
-            ? "Not available"
-            : Number(value).toFixed(1);
-
+  function scoreBar(label, value) {
+    const shown = value === null ? "N/A" : value.toFixed(2);
+    const width = value === null ? 0 : Math.max(0, Math.min(100, value));
     return `
-        <div class="metric">
+      <div style="margin-bottom:14px">
+        <div class="score-line"><span>${label}</span><strong>${shown}</strong></div>
+        <div class="bar"><div style="width:${width}%"></div></div>
+      </div>`;
+  }
 
-            <div class="metric-top">
-                <span>${label}</span>
-                <strong>${display}</strong>
-            </div>
+  function formatScore(value) {
+    return value === null ? "—" : value.toFixed(1);
+  }
 
-            <div class="bar">
-                <div
-                    class="bar-fill"
-                    style="width:${Math.min(safeValue, 100)}%"
-                ></div>
-            </div>
+  function escapeHtml(value) {
+    return String(value ?? "").replace(/[&<>"']/g, c => ({
+      "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
+    }[c]));
+  }
 
-        </div>
-    `;
-}
-
-
-function updateStats() {
-
-    document.getElementById("totalCandidates")
-        .textContent = rankings.length;
-
-    document.getElementById("shortlisted")
-        .textContent =
-            rankings.filter(
-                c => c.recommendation === "shortlist"
-            ).length;
-
-    document.getElementById("topScore")
-        .textContent =
-            rankings.length
-                ? Number(rankings[0].final_score).toFixed(1)
-                : "—";
-}
-
-
-function openSchedule() {
-
+  function openSchedule() {
     if (!selectedCandidate) return;
+    document.getElementById("scheduleCandidate").textContent =
+      `${selectedCandidate.candidate_name || ""} • ${selectedCandidate.email || ""}`;
+    document.getElementById("scheduleStatus").textContent = "";
+    document.getElementById("scheduleModal").classList.add("open");
 
-    document.getElementById("scheduleName")
-        .value = selectedCandidate.candidate_name;
+    const now = new Date();
+    const end = new Date(now.getTime() + 30 * 60000);
+    document.getElementById("startTime").value = toLocalInput(now);
+    document.getElementById("endTime").value = toLocalInput(end);
+  }
 
-    document.getElementById("scheduleEmail")
-        .value = selectedCandidate.email;
+  function closeSchedule() {
+    document.getElementById("scheduleModal").classList.remove("open");
+  }
 
-    document.getElementById("scheduleResult")
-        .innerHTML = "";
+  function toLocalInput(date) {
+    const pad = n => String(n).padStart(2, "0");
+    return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  }
 
-    document.getElementById("scheduleModal")
-        .classList.add("show");
-}
-
-
-function closeSchedule() {
-
-    document.getElementById("scheduleModal")
-        .classList.remove("show");
-}
-
-
-async function scheduleInterview() {
-
-    const start =
-        document.getElementById("scheduleStart").value;
-
-    const end =
-        document.getElementById("scheduleEnd").value;
+  async function scheduleInterview() {
+    if (!selectedCandidate) return;
+    const start = document.getElementById("startTime").value;
+    const end = document.getElementById("endTime").value;
 
     if (!start || !end) {
-        alert("Please select start and end time.");
-        return;
+      setStatus("scheduleStatus", "Please choose both start and end times.");
+      return;
     }
 
-    const result =
-        document.getElementById("scheduleResult");
+    const startISO = new Date(start).toISOString();
+    const endISO = new Date(end).toISOString();
 
-    result.innerHTML =
-        `<div class="loading">Creating Calendar event...</div>`;
-
+    setStatus("scheduleStatus", "Creating Google Calendar event and Meet link...");
     try {
-
-        const params = new URLSearchParams({
-            candidate_name: selectedCandidate.candidate_name,
-            candidate_email: selectedCandidate.email,
-            start_time: new Date(start).toISOString(),
-            end_time: new Date(end).toISOString()
-        });
-
-        const response = await fetch(
-            `/api/calendar/schedule?${params.toString()}`,
-            {
-                method: "POST"
-            }
-        );
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(
-                data.detail || "Scheduling failed"
-            );
-        }
-
-        result.innerHTML = `
-            <div class="success-box">
-                <strong>Interview scheduled successfully.</strong><br>
-
-                Google Meet:
-                <a
-                    href="${data.meet_link}"
-                    target="_blank"
-                >
-                    Join meeting
-                </a>
-                <br>
-
-                Calendar:
-                <a
-                    href="${data.event_link}"
-                    target="_blank"
-                >
-                    Open event
-                </a>
-            </div>
-        `;
-
-        const count =
-            document.getElementById("interviews");
-
-        count.textContent =
-            Number(count.textContent || 0) + 1;
-
+      const params = new URLSearchParams({
+        candidate_name: selectedCandidate.candidate_name || "",
+        candidate_email: selectedCandidate.email || "",
+        start_time: startISO,
+        end_time: endISO
+      });
+      const response = await fetch(`/api/calendar/schedule?${params.toString()}`, { method: "POST" });
+      const data = await parseResponse(response);
+      setStatus("scheduleStatus", `Interview created. Meet: ${data.meet_link || "created"} `, true);
+      scheduledInterviews += 1;
+      document.getElementById("interviewCount").textContent = scheduledInterviews;
+      toast("Interview scheduled successfully.");
     } catch (error) {
-
-        result.innerHTML = `
-            <div class="success-box"
-                 style="background:#fff0f0;color:#a12832;">
-                ${escapeHtml(error.message)}
-            </div>
-        `;
+      setStatus("scheduleStatus", `Failed: ${error.message}`);
     }
-}
+  }
 
-
-async function processResumes() {
-
-    alert("Resume processing started.");
-
-    fetch(
-        `/api/jobs/${JOB_ID}/process-resumes`,
-        { method: "POST" }
-    );
-}
-
-
-async function runEvaluation() {
-
-    alert(
-        "AI evaluation has been queued. " +
-        "Refresh ranking when processing completes."
-    );
-
-    fetch(
-        `/api/jobs/${JOB_ID}/evaluate`,
-        { method: "POST" }
-    );
-}
-
-
-async function analyzeGithub() {
-
-    alert("GitHub analysis started.");
-
-    fetch(
-        `/api/screening/github`,
-        { method: "POST" }
-    );
-}
-
-
-function formatScore(value) {
-
-    if (value === null || value === undefined) {
-        return "—";
-    }
-
-    return Number(value).toFixed(1);
-}
-
-
-function escapeHtml(value) {
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
-
-
-loadRanking();
-
+  document.addEventListener("DOMContentLoaded", loadRankings);
 </script>
-
 </body>
 </html>
