@@ -1,4 +1,5 @@
-from fastapi import FastAPI 
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles 
 from app.models.database import Base,engine
 from app.models.candidate import Candidate
 from app.api.routes.candidate import router as candidate_router
@@ -18,6 +19,14 @@ Base.metadata.create_all(bind=engine)
 app=FastAPI(
     title="Candidate Screening Platform",
     version="0.1.0"
+)
+app.mount(
+    "/",
+    StaticFiles(
+        directory="frontend",
+        html=True,
+    ),
+    name="frontend",
 )
 
 app.include_router(candidate_router)
