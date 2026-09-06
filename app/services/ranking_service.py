@@ -39,6 +39,15 @@ def calculate_final_score(
 
     return round(final_score, 2)
 
+def get_final_decision(final_score: float) -> str:
+    if final_score >= 80:
+        return "strong_shortlist"
+    if final_score >= 65:
+        return "shortlist"
+    if final_score >= 50:
+        return "borderline"
+    return "reject"    
+
 
 def rank_candidates(
     job_id: int,
@@ -111,7 +120,7 @@ def rank_candidates(
                 else None
             ),
             "final_score": final_score,
-            "recommendation": evaluation.recommendation,
+            "recommendation": get_final_decision(final_score),
         })
 
     ranked.sort(
