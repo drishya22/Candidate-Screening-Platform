@@ -14,7 +14,9 @@ client = genai.Client(api_key=settings.gemini_api_key)
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 
-EVALUATION_SCHEMA = {
+# Gemini uses Google's own structured-output schema format.
+# Keep this schema Gemini-compatible.
+GEMINI_EVALUATION_SCHEMA = {
     "type": "object",
     "properties": {
         "skills_score": {
@@ -36,12 +38,16 @@ EVALUATION_SCHEMA = {
         "strengths": {
             "type": "array",
             "maxItems": 5,
-            "items": {"type": "string"},
+            "items": {
+                "type": "string",
+            },
         },
         "gaps": {
             "type": "array",
             "maxItems": 5,
-            "items": {"type": "string"},
+            "items": {
+                "type": "string",
+            },
         },
         "evidence": {
             "type": "array",
@@ -50,8 +56,97 @@ EVALUATION_SCHEMA = {
             "items": {
                 "type": "object",
                 "properties": {
-                    "requirement": {"type": "string"},
-                    "matched": {"type": "boolean"},
+                    "requirement": {
+                        "type": "string",
+                    },
+                    "matched": {
+                        "type": "boolean",
+                    },
+                    "evidence": {
+                        "type": "string",
+                        "description": "Maximum 20 words.",
+                    },
+                },
+                "required": [
+                    "requirement",
+                    "matched",
+                    "evidence",
+                ],
+            },
+        },
+        "recommendation": {
+            "type": "string",
+            "enum": [
+                "strong_shortlist",
+                "shortlist",
+                "borderline",
+                "reject",
+            ],
+        },
+    },
+    "required": [
+        "skills_score",
+        "experience_score",
+        "project_score",
+        "education_score",
+        "strengths",
+        "gaps",
+        "evidence",
+        "recommendation",
+    ],
+}
+
+
+# OpenRouter uses standard JSON Schema for strict structured output.
+# Keep additionalProperties=False here so the schema remains strict.
+OPENROUTER_EVALUATION_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "properties": {
+        "skills_score": {
+            "type": "number",
+            "description": "Score from 0 to 100 for required technical skills.",
+        },
+        "experience_score": {
+            "type": "number",
+            "description": "Score from 0 to 100 for relevant experience.",
+        },
+        "project_score": {
+            "type": "number",
+            "description": "Score from 0 to 100 for relevance and quality of projects.",
+        },
+        "education_score": {
+            "type": "number",
+            "description": "Score from 0 to 100 for educational background.",
+        },
+        "strengths": {
+            "type": "array",
+            "maxItems": 5,
+            "items": {
+                "type": "string",
+            },
+        },
+        "gaps": {
+            "type": "array",
+            "maxItems": 5,
+            "items": {
+                "type": "string",
+            },
+        },
+        "evidence": {
+            "type": "array",
+            "minItems": 5,
+            "maxItems": 8,
+            "items": {
+                "type": "object",
+                "additionalProperties": False,
+                "properties": {
+                    "requirement": {
+                        "type": "string",
+                    },
+                    "matched": {
+                        "type": "boolean",
+                    },
                     "evidence": {
                         "type": "string",
                         "description": "Maximum 20 words.",
@@ -112,7 +207,7 @@ def _evaluate_with_gemini(prompt: str) -> dict:
         contents=prompt,
         config=types.GenerateContentConfig(
             response_mime_type="application/json",
-            response_schema=EVALUATION_SCHEMA,
+            response_schema=GEMINI_EVALUATION_SCHEMA,
         ),
     )
 
@@ -136,7 +231,7 @@ def _evaluate_with_openrouter(prompt: str) -> dict:
             "json_schema": {
                 "name": "candidate_evaluation",
                 "strict": True,
-                "schema": EVALUATION_SCHEMA,
+                "schema": OPENROUTER_EVALUATION_SCHEMA,
             },
         },
         "provider": {
