@@ -16,7 +16,6 @@ OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 EVALUATION_SCHEMA = {
     "type": "object",
-    "additionalProperties": False,
     "properties": {
         "skills_score": {
             "type": "number",
@@ -50,7 +49,6 @@ EVALUATION_SCHEMA = {
             "maxItems": 8,
             "items": {
                 "type": "object",
-                "additionalProperties": False,
                 "properties": {
                     "requirement": {"type": "string"},
                     "matched": {"type": "boolean"},
@@ -161,7 +159,6 @@ def _evaluate_with_openrouter(prompt: str) -> dict:
     response.raise_for_status()
 
     data = response.json()
-
     content = data["choices"][0]["message"]["content"]
 
     return json.loads(content)
@@ -170,7 +167,7 @@ def _evaluate_with_openrouter(prompt: str) -> dict:
 def evaluate_candidate(job_description: str, resume_text: str) -> dict:
     prompt = _build_prompt(job_description, resume_text)
 
-    # Primary provider
+    # Primary provider: Gemini
     try:
         result = _evaluate_with_gemini(prompt)
 
@@ -184,7 +181,7 @@ def evaluate_candidate(job_description: str, resume_text: str) -> dict:
             gemini_error,
         )
 
-    # Fallback provider
+    # Fallback provider: OpenRouter
     try:
         result = _evaluate_with_openrouter(prompt)
 
