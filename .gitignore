@@ -262,3 +262,8 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+candidate_dataset.xlsx
+
+credentials/
+token.json
