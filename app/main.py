@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.models.database import Base, engine
 
-from app.api.routes.candidates import router as candidates_router
+from app.api.routes.candidate import router as candidates_router
 from app.api.routes.jobs import router as jobs_router
 from app.api.routes.screening import router as screening_router
 from app.api.routes.test_result import router as test_result_router
