@@ -33,7 +33,7 @@ CALENDAR_TIMEZONE = os.getenv(
 )
 
 
-def get_authorization_url() -> str:
+def get_authorization_url():
     flow = Flow.from_client_secrets_file(
         CLIENT_SECRETS_FILE,
         scopes=SCOPES,
@@ -45,15 +45,28 @@ def get_authorization_url() -> str:
         prompt="consent",
     )
 
+    # Preserve the PKCE verifier for the callback request.
+    with open("oauth_code_verifier.txt", "w") as f:
+        f.write(flow.code_verifier)
+
     return authorization_url
 
 
-def handle_oauth_callback(code: str):
+def handle_oauth_callback(code):
+    if not os.path.exists("oauth_code_verifier.txt"):
+        raise RuntimeError("OAuth code verifier is missing. Please start OAuth again.")
+
+    with open("oauth_code_verifier.txt", "r") as f:
+        code_verifier = f.read().strip()
+
     flow = Flow.from_client_secrets_file(
         CLIENT_SECRETS_FILE,
         scopes=SCOPES,
         redirect_uri=REDIRECT_URI,
     )
+
+    # Restore the verifier generated during /oauth/start.
+    flow.code_verifier = code_verifier
 
     flow.fetch_token(code=code)
 
@@ -61,6 +74,12 @@ def handle_oauth_callback(code: str):
 
     with open(TOKEN_FILE, "w") as token:
         token.write(credentials.to_json())
+
+    # No longer needed after successful OAuth.
+    try:
+        os.remove("oauth_code_verifier.txt")
+    except OSError:
+        pass
 
     return credentials
 

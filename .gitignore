@@ -267,3 +267,5 @@ candidate_dataset.xlsx
 
 credentials/
 token.json
+
+oauth_code_verifier.txt
