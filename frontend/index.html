@@ -3,243 +3,373 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Candidate Screening Platform</title>
+  <title>Screening Desk</title>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
-        BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f5f7fb;
+      background: #f7f5f0;
       color: #17233d;
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
     }
 
-    button, input { font: inherit; }
-    button { cursor: pointer; }
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
 
     .topbar {
-      height: 74px;
-      background: white;
-      border-bottom: 1px solid #e7ebf2;
+      height: 76px;
+      background: #ffffff;
+      border-bottom: 1px solid #dedbd4;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 40px;
+      padding: 0 42px;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 14px;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 800;
+      letter-spacing: -0.3px;
     }
 
     .logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: #18243d;
+      width: 36px;
+      height: 36px;
+      background: #17233d;
       color: white;
       display: grid;
       place-items: center;
+      font-size: 12px;
       font-weight: 900;
     }
 
     .top-label {
-      color: #6d7890;
-      font-size: 14px;
+      color: #71809a;
+      font-size: 13px;
     }
 
     .container {
-      max-width: 1400px;
+      max-width: 1580px;
       margin: 0 auto;
-      padding: 34px 28px 60px;
+      padding: 42px 42px 70px;
     }
 
-    h1 {
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 40px;
+      padding-bottom: 34px;
+      border-bottom: 1px solid #17233d;
+    }
+
+    .eyebrow {
+      color: #c45d36;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
       margin: 0;
-      font-size: 34px;
-      letter-spacing: -0.8px;
+      max-width: 680px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(46px, 5vw, 70px);
+      line-height: 0.98;
+      font-weight: 500;
+      letter-spacing: -2.5px;
     }
 
-    .subtitle {
-      color: #72809a;
-      margin: 8px 0 28px;
+    .hero p {
+      margin: 20px 0 0;
+      color: #71809a;
       font-size: 16px;
+      line-height: 1.5;
+      max-width: 760px;
     }
 
-    .card {
-      background: white;
-      border: 1px solid #e5e9f0;
-      border-radius: 16px;
-      box-shadow: 0 4px 18px rgba(25, 38, 65, .04);
+    .hero-action {
+      align-self: center;
+    }
+
+    .btn {
+      border: 1px solid #d8d4cc;
+      background: transparent;
+      color: #17233d;
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 800;
+      border-radius: 0;
+    }
+
+    .btn:hover {
+      background: #efede8;
+    }
+
+    .btn.primary {
+      background: #c95f38;
+      border-color: #c95f38;
+      color: white;
+      padding: 14px 22px;
+    }
+
+    .btn.primary:hover {
+      background: #b95330;
+    }
+
+    .btn.dark {
+      background: #17233d;
+      border-color: #17233d;
+      color: white;
+    }
+
+    .btn.small {
+      padding: 9px 13px;
+      font-size: 12px;
+    }
+
+    .position-row {
+      padding: 24px 0;
+      border-bottom: 1px solid #dedbd4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .position-title {
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .position-meta {
+      color: #71809a;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid #dedbd4;
+    }
+
+    .stat {
+      padding: 34px 24px 32px 0;
+      border-right: 1px solid #dedbd4;
+    }
+
+    .stat:not(:first-child) {
+      padding-left: 28px;
+    }
+
+    .stat:last-child {
+      border-right: 0;
+    }
+
+    .stat-label {
+      color: #71809a;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+    }
+
+    .stat-value {
+      margin-top: 13px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 42px;
+      line-height: 1;
+      color: #17233d;
+    }
+
+    .sources {
+      padding: 38px 0 34px;
+    }
+
+    .section-heading {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      font-weight: 500;
+      margin: 0;
+      letter-spacing: -1px;
+    }
+
+    .section-subtitle {
+      color: #71809a;
+      font-size: 13px;
+      margin-top: 7px;
+    }
+
+    .ingestion-card {
+      margin-top: 24px;
+      border: 1px solid #d9d5cc;
+      background: #fbfaf7;
+      padding: 25px;
+    }
+
+    .ingestion-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 25px;
+    }
+
+    .ingestion-title {
+      font-size: 16px;
+      font-weight: 850;
+    }
+
+    .ingestion-description {
+      margin-top: 6px;
+      color: #71809a;
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 780px;
+    }
+
+    .ingestion-number {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 26px;
+      color: #aaa397;
+    }
+
+    .file-area {
+      margin-top: 22px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .file-input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px;
+      border: 1px dashed #bdb8ae;
+      background: #ffffff;
+      color: #59677d;
+      font-size: 13px;
+    }
+
+    .ingestion-status {
+      min-height: 20px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: #71809a;
+    }
+
+    .ingestion-status.ok {
+      color: #17734d;
+    }
+
+    .ingestion-status.err {
+      color: #b42318;
     }
 
     .pipeline {
-      padding: 24px;
-      margin-bottom: 22px;
+      margin-top: 10px;
+      padding: 28px 0 34px;
+      border-top: 1px solid #dedbd4;
+      border-bottom: 1px solid #dedbd4;
     }
 
-    .job-row {
+    .pipeline-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
     }
 
-    .job-title {
-      font-size: 20px;
-      font-weight: 800;
+    .pipeline-title {
+      font-size: 15px;
+      font-weight: 850;
     }
 
-    .job-id {
-      color: #8190a8;
-      font-size: 13px;
-      margin-top: 5px;
+    .pipeline-state {
+      color: #71809a;
+      font-size: 12px;
     }
 
-    .actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .btn {
-      border: 0;
-      border-radius: 10px;
-      padding: 11px 16px;
-      font-weight: 700;
-      background: #edf1f7;
-      color: #18243d;
-    }
-
-    .btn:hover {
-      filter: brightness(.97);
-    }
-
-    .btn.primary {
-      background: #18243d;
-      color: white;
-    }
-
-    .btn.success {
-      background: #e8f7ef;
-      color: #167348;
-    }
-
-    .btn.small {
-      padding: 8px 11px;
-      font-size: 13px;
-    }
-
-    .upload-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-
-    .upload-card {
-      padding: 20px;
-    }
-
-    .upload-card h3 {
-      margin: 0 0 6px;
-      font-size: 17px;
-    }
-
-    .upload-card p {
-      margin: 0 0 15px;
-      color: #78859d;
-      font-size: 13px;
-    }
-
-    .file-row {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    input[type=file] {
-      width: 100%;
-      padding: 10px;
-      border: 1px dashed #cbd3e0;
-      border-radius: 10px;
-      background: #fafbfc;
-      color: #68758d;
-    }
-
-    .status {
-      margin-top: 10px;
-      min-height: 20px;
-      color: #68758d;
-      font-size: 13px;
-    }
-
-    .status.ok {
-      color: #18764d;
-    }
-
-    .status.err {
-      color: #b42318;
-    }
-
-    .stats {
+    .pipeline-steps {
+      margin-top: 25px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 22px;
+      gap: 10px;
     }
 
-    .stat {
-      padding: 22px;
+    .pipeline-step {
+      border-top: 2px solid #d7d3ca;
+      padding-top: 12px;
     }
 
-    .stat-label {
-      color: #71809a;
-      font-size: 13px;
+    .pipeline-step.active {
+      border-top-color: #c95f38;
     }
 
-    .stat-value {
-      margin-top: 10px;
-      font-size: 30px;
+    .pipeline-step.done {
+      border-top-color: #3c8061;
+    }
+
+    .step-name {
+      font-size: 12px;
       font-weight: 800;
     }
 
-    .main-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(340px, .9fr);
-      gap: 22px;
+    .step-status {
+      margin-top: 4px;
+      color: #8a93a2;
+      font-size: 11px;
     }
 
-    .section {
-      padding: 24px;
-      min-height: 400px;
+    .results {
+      padding-top: 40px;
     }
 
-    .section-header {
+    .results-header {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: space-between;
+      gap: 20px;
       margin-bottom: 18px;
     }
 
-    .section-title {
-      font-size: 18px;
+    .refresh-btn {
+      border: 1px solid #d8d4cc;
+      background: transparent;
+      color: #17233d;
+      padding: 10px 18px;
+      font-size: 12px;
       font-weight: 800;
-    }
-
-    .muted {
-      color: #7a879e;
-      font-size: 13px;
     }
 
     .table-wrap {
       overflow-x: auto;
+      border: 1px solid #d9d5cc;
+      background: #fbfaf7;
     }
 
     table {
@@ -249,18 +379,24 @@
 
     th {
       text-align: left;
-      padding: 12px 10px;
+      padding: 13px 18px;
+      color: #71809a;
       font-size: 11px;
-      color: #7c899f;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
-      letter-spacing: .05em;
-      border-bottom: 1px solid #e9edf3;
+      border-bottom: 1px solid #d9d5cc;
+      white-space: nowrap;
     }
 
     td {
-      padding: 14px 10px;
-      border-bottom: 1px solid #eef1f5;
+      padding: 19px 18px;
+      border-bottom: 1px solid #e4e1da;
       font-size: 13px;
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
     }
 
     tr.candidate-row {
@@ -268,127 +404,142 @@
     }
 
     tr.candidate-row:hover {
-      background: #fafbfe;
+      background: #f3f1ec;
     }
 
     .rank {
-      font-weight: 800;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
     }
 
     .candidate-name {
-      font-weight: 750;
+      font-weight: 850;
+    }
+
+    .candidate-email {
+      margin-top: 4px;
+      color: #71809a;
+      font-size: 11px;
     }
 
     .score {
-      font-weight: 800;
+      font-weight: 850;
     }
 
     .badge {
       display: inline-block;
-      border-radius: 999px;
       padding: 5px 9px;
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: capitalize;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
     }
 
+    .badge.strong_shortlist,
     .badge.shortlist {
-      background: #e7f7ee;
-      color: #167348;
-    }
-
-    .badge.strong_shortlist {
-      background: #e1f4e9;
-      color: #0f6840;
+      background: #e8f4ec;
+      color: #176d47;
     }
 
     .badge.borderline {
-      background: #fff5dc;
+      background: #f6ecd7;
       color: #996b00;
     }
 
     .badge.reject {
-      background: #fdeaea;
-      color: #b42318;
+      background: #f5e1e1;
+      color: #b33c3c;
     }
 
     .badge.pending {
-      background: #edf1f7;
+      background: #e8e8e5;
       color: #68758d;
     }
 
-    .empty {
-      padding: 70px 20px;
-      text-align: center;
-      color: #8490a5;
+    .interview-btn {
+      border: 1px solid #d4d0c8;
+      background: white;
+      padding: 9px 15px;
+      font-size: 12px;
+      font-weight: 800;
     }
 
-    .details {
-      color: #5f6d85;
-      font-size: 14px;
-      line-height: 1.55;
+    .interview-btn:hover {
+      background: #efede8;
     }
 
-    .candidate-header {
+    .footnote {
+      padding: 20px 0;
+      color: #71809a;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .details-panel {
+      margin-top: 28px;
+      border: 1px solid #d9d5cc;
+      background: #fbfaf7;
+      padding: 27px;
+      display: none;
+    }
+
+    .details-panel.open {
+      display: block;
+    }
+
+    .details-header {
       display: flex;
       justify-content: space-between;
-      gap: 15px;
+      gap: 20px;
       align-items: flex-start;
     }
 
-    .candidate-header h2 {
-      margin: 0;
-      color: #17233d;
-      font-size: 23px;
+    .details-name {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 30px;
     }
 
-    .score-block {
-      margin-top: 22px;
+    .details-email {
+      color: #71809a;
+      font-size: 12px;
+      margin-top: 5px;
     }
 
-    .score-line {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      margin-bottom: 6px;
+    .detail-scores {
+      margin-top: 25px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
     }
 
-    .bar {
-      height: 8px;
-      background: #edf0f5;
-      border-radius: 99px;
-      overflow: hidden;
+    .detail-score {
+      border-top: 1px solid #d9d5cc;
+      padding-top: 11px;
     }
 
-    .bar > div {
-      height: 100%;
-      background: #18243d;
-      border-radius: 99px;
+    .detail-score-label {
+      color: #71809a;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
-    .detail-group {
-      margin-top: 20px;
-    }
-
-    .detail-group h4 {
-      margin: 0 0 8px;
-      color: #17233d;
-    }
-
-    .detail-group ul {
-      margin: 0;
-      padding-left: 20px;
+    .detail-score-value {
+      margin-top: 6px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 26px;
     }
 
     .modal {
       position: fixed;
       inset: 0;
-      background: rgba(14, 23, 41, .48);
+      background: rgba(23, 35, 61, 0.48);
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      z-index: 20;
+      z-index: 50;
     }
 
     .modal.open {
@@ -396,237 +547,240 @@
     }
 
     .modal-card {
-      width: min(500px, 100%);
-      background: white;
-      border-radius: 18px;
-      padding: 26px;
+      width: min(620px, 100%);
+      background: #fbfaf7;
+      padding: 30px;
+      border: 1px solid #d9d5cc;
     }
 
     .modal-card h2 {
-      margin-top: 0;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 30px;
+      font-weight: 500;
+    }
+
+    .modal-description {
+      margin-top: 7px;
+      color: #71809a;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     .field {
-      margin: 14px 0;
+      margin-top: 20px;
     }
 
     .field label {
       display: block;
-      font-size: 13px;
-      font-weight: 700;
       margin-bottom: 7px;
+      font-size: 12px;
+      font-weight: 850;
     }
 
-    .field input {
+    .field input,
+    .field textarea {
       width: 100%;
-      border: 1px solid #d7dce6;
-      border-radius: 9px;
-      padding: 10px;
+      border: 1px solid #d2cec5;
+      background: white;
+      padding: 12px;
+      color: #17233d;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 170px;
+      resize: vertical;
+      line-height: 1.5;
     }
 
     .modal-actions {
       display: flex;
       justify-content: flex-end;
-      gap: 9px;
-      margin-top: 20px;
+      gap: 10px;
+      margin-top: 23px;
     }
 
     .toast {
       position: fixed;
       right: 22px;
       bottom: 22px;
-      background: #18243d;
+      background: #17233d;
       color: white;
-      padding: 12px 16px;
-      border-radius: 10px;
+      padding: 13px 17px;
+      font-size: 12px;
+      max-width: 430px;
       display: none;
-      z-index: 30;
-      max-width: 420px;
-      font-size: 13px;
+      z-index: 100;
     }
 
     .toast.show {
       display: block;
     }
 
-    @media (max-width: 950px) {
-      .main-grid,
-      .upload-grid {
+    .empty {
+      padding: 55px 20px;
+      text-align: center;
+      color: #8a93a2;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        padding: 30px 22px 50px;
+      }
+
+      .topbar {
+        padding: 0 22px;
+      }
+
+      .hero {
         grid-template-columns: 1fr;
+      }
+
+      .hero-action {
+        align-self: start;
       }
 
       .stats {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .job-row {
-        flex-direction: column;
-        align-items: flex-start;
+      .stat {
+        border-bottom: 1px solid #dedbd4;
+      }
+
+      .pipeline-steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .detail-scores {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
     @media (max-width: 600px) {
-      .topbar {
-        padding: 0 18px;
+      .brand {
+        font-size: 17px;
       }
 
-      .container {
-        padding: 24px 15px;
+      .top-label {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 45px;
       }
 
       .stats {
         grid-template-columns: 1fr;
       }
+
+      .stat {
+        border-right: 0;
+        padding-left: 0 !important;
+      }
+
+      .file-area {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .position-row,
+      .results-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 
+
 <body>
 
 <header class="topbar">
+
   <div class="brand">
     <div class="logo">CS</div>
-    <span>Candidate Screening Platform</span>
+    <span>Screening Desk</span>
   </div>
 
-  <div class="top-label">Recruiter Dashboard</div>
+  <div class="top-label">
+    Recruiting intelligence workspace
+  </div>
+
 </header>
 
 
 <main class="container">
 
-  <h1>Candidate Pipeline</h1>
 
-  <div class="subtitle">
-    AI-powered candidate evaluation and interview automation
-  </div>
+  <!-- HERO -->
 
+  <section class="hero">
 
-  <!-- PIPELINE -->
+    <div>
 
-  <section class="card pipeline">
-
-    <div class="job-row">
-
-      <div>
-        <div class="job-title" id="jobTitle">
-          AI Engineer
-        </div>
-
-        <div class="job-id">
-          Job ID: <span id="jobIdLabel">1</span>
-        </div>
+      <div class="eyebrow">
+        Candidate intelligence
       </div>
 
-      <div class="muted">
-        End-to-end screening workflow
-      </div>
+      <h1>
+        Find the strongest
+        candidates faster.
+      </h1>
+
+      <p>
+        Turn resumes, public engineering work and assessment
+        results into one evidence-based shortlist.
+      </p>
 
     </div>
 
 
-    <div class="actions">
+    <div class="hero-action">
 
       <button
         class="btn primary"
-        onclick="processResumes()">
-        Process Resumes
-      </button>
-
-      <button
-        class="btn"
-        onclick="runEvaluation()">
-        Run AI Evaluation
-      </button>
-
-      <button
-        class="btn"
-        onclick="analyzeGithub()">
-        Analyze GitHub
-      </button>
-
-      <button
-        class="btn"
-        onclick="loadRankings()">
-        Refresh Ranking
+        onclick="runScreening()"
+      >
+        Run screening
       </button>
 
     </div>
-
-
-    <div id="pipelineStatus" class="status"></div>
 
   </section>
 
 
-  <!-- UPLOADS -->
+  <!-- POSITION -->
 
-  <section class="upload-grid">
+  <section class="position-row">
 
-    <div class="card upload-card">
+    <div>
 
-      <h3>📥 Candidate Dataset</h3>
-
-      <p>
-        Upload the candidate CSV or XLSX dataset
-        to populate the screening pipeline.
-      </p>
-
-      <div class="file-row">
-
-        <input
-          id="candidateFile"
-          type="file"
-          accept=".csv,.xlsx,.xls"
-        />
-
-        <button
-          class="btn primary small"
-          onclick="uploadCandidates()">
-          Upload
-        </button>
-
+      <div
+        class="position-title"
+        id="positionTitle"
+      >
+        No position selected
       </div>
 
       <div
-        id="candidateUploadStatus"
-        class="status">
+        class="position-meta"
+        id="positionMeta"
+      >
+        Create a position before running screening.
       </div>
 
     </div>
 
 
-    <div class="card upload-card">
-
-      <h3>🧪 Test Results</h3>
-
-      <p>
-        Upload logical aptitude and coding
-        test results in CSV or XLSX format.
-      </p>
-
-      <div class="file-row">
-
-        <input
-          id="testFile"
-          type="file"
-          accept=".csv,.xlsx,.xls"
-        />
-
-        <button
-          class="btn primary small"
-          onclick="uploadTestResults()">
-          Upload
-        </button>
-
-      </div>
-
-      <div
-        id="testUploadStatus"
-        class="status">
-      </div>
-
-    </div>
+    <button
+      class="btn"
+      onclick="openJobModal()"
+    >
+      Set position
+    </button>
 
   </section>
 
@@ -635,60 +789,64 @@
 
   <section class="stats">
 
-    <div class="card stat">
+    <div class="stat">
 
       <div class="stat-label">
-        Candidates Evaluated
+        Candidates
       </div>
 
       <div
         class="stat-value"
-        id="candidateCount">
-        —
+        id="candidateCount"
+      >
+        0
       </div>
 
     </div>
 
 
-    <div class="card stat">
+    <div class="stat">
 
       <div class="stat-label">
-        Shortlisted
+        AI evaluated
       </div>
 
       <div
         class="stat-value"
-        id="shortlistCount">
-        —
+        id="aiCount"
+      >
+        0
       </div>
 
     </div>
 
 
-    <div class="card stat">
+    <div class="stat">
 
       <div class="stat-label">
-        Top Score
+        GitHub analysed
       </div>
 
       <div
         class="stat-value"
-        id="topScore">
-        —
+        id="githubCount"
+      >
+        0
       </div>
 
     </div>
 
 
-    <div class="card stat">
+    <div class="stat">
 
       <div class="stat-label">
-        Interviews
+        Ranked
       </div>
 
       <div
         class="stat-value"
-        id="interviewCount">
+        id="rankedCount"
+      >
         0
       </div>
 
@@ -697,93 +855,267 @@
   </section>
 
 
-  <!-- MAIN -->
+  <!-- DATA SOURCE -->
 
-  <section class="main-grid">
+  <section class="sources">
+
+    <h2 class="section-heading">
+      Data sources
+    </h2>
+
+    <div class="section-subtitle">
+      Bring in the candidate pool and assessment outcomes.
+    </div>
 
 
-    <!-- RANKINGS -->
+    <div class="ingestion-card">
 
-    <div class="card section">
+      <div class="ingestion-top">
 
-      <div class="section-header">
+        <div>
 
-        <div class="section-title">
-          Candidate Rankings
+          <div class="ingestion-title">
+            Candidate dataset
+          </div>
+
+          <div class="ingestion-description">
+            Upload one CSV or XLSX workbook containing the candidate
+            dataset and test results. The platform automatically
+            imports both sources into the screening pipeline.
+          </div>
+
         </div>
 
-        <div
-          class="muted"
-          id="rankingStatus">
-          Loading...
+
+        <div class="ingestion-number">
+          01
         </div>
 
       </div>
 
 
-      <div class="table-wrap">
+      <div class="file-area">
 
-        <table>
-
-          <thead>
-
-            <tr>
-              <th>Rank</th>
-              <th>Candidate</th>
-              <th>AI</th>
-              <th>GitHub</th>
-              <th>Test</th>
-              <th>Final</th>
-              <th>Recommendation</th>
-            </tr>
-
-          </thead>
+        <input
+          class="file-input"
+          id="datasetFile"
+          type="file"
+          accept=".csv,.xlsx,.xls"
+        />
 
 
-          <tbody id="rankingBody">
+        <button
+          class="btn dark"
+          onclick="uploadDataset()"
+        >
+          Upload dataset
+        </button>
 
-            <tr>
+      </div>
 
-              <td colspan="7">
 
-                <div class="empty">
-                  Loading rankings...
-                </div>
+      <div
+        id="datasetStatus"
+        class="ingestion-status"
+      ></div>
 
-              </td>
+    </div>
 
-            </tr>
+  </section>
 
-          </tbody>
 
-        </table>
+  <!-- PIPELINE -->
+
+  <section class="pipeline">
+
+    <div class="pipeline-header">
+
+      <div class="pipeline-title">
+        Screening pipeline
+      </div>
+
+      <div
+        class="pipeline-state"
+        id="pipelineState"
+      >
+        Ready
+      </div>
+
+    </div>
+
+
+    <div class="pipeline-steps">
+
+      <div
+        class="pipeline-step"
+        id="stepResume"
+      >
+
+        <div class="step-name">
+          Resume processing
+        </div>
+
+        <div
+          class="step-status"
+          id="stepResumeStatus"
+        >
+          Waiting
+        </div>
+
+      </div>
+
+
+      <div
+        class="pipeline-step"
+        id="stepAI"
+      >
+
+        <div class="step-name">
+          AI evaluation
+        </div>
+
+        <div
+          class="step-status"
+          id="stepAIStatus"
+        >
+          Waiting
+        </div>
+
+      </div>
+
+
+      <div
+        class="pipeline-step"
+        id="stepGithub"
+      >
+
+        <div class="step-name">
+          GitHub analysis
+        </div>
+
+        <div
+          class="step-status"
+          id="stepGithubStatus"
+        >
+          Waiting
+        </div>
+
+      </div>
+
+
+      <div
+        class="pipeline-step"
+        id="stepRanking"
+      >
+
+        <div class="step-name">
+          Score & ranking
+        </div>
+
+        <div
+          class="step-status"
+          id="stepRankingStatus"
+        >
+          Waiting
+        </div>
 
       </div>
 
     </div>
 
 
+    <div
+      id="pipelineMessage"
+      class="ingestion-status"
+    ></div>
+
+  </section>
+
+
+  <!-- RESULTS -->
+
+  <section class="results">
+
+    <div class="results-header">
+
+      <div>
+
+        <h2 class="section-heading">
+          Shortlist
+        </h2>
+
+        <div class="section-subtitle">
+          AI fit 50% · GitHub 20% · assessment 30%
+        </div>
+
+      </div>
+
+
+      <button
+        class="refresh-btn"
+        onclick="loadRankings()"
+      >
+        Refresh
+      </button>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Rank</th>
+            <th>Candidate</th>
+            <th>AI Fit</th>
+            <th>GitHub</th>
+            <th>Test</th>
+            <th>Final</th>
+            <th>Decision</th>
+            <th></th>
+          </tr>
+
+        </thead>
+
+
+        <tbody id="rankingBody">
+
+          <tr>
+
+            <td colspan="8">
+
+              <div class="empty">
+                Upload a dataset and run screening
+                to generate the shortlist.
+              </div>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+
     <!-- DETAILS -->
 
-    <div class="card section">
+    <div
+      id="detailsPanel"
+      class="details-panel"
+    ></div>
 
-      <div class="section-header">
 
-        <div class="section-title">
-          Candidate Details
-        </div>
+    <div class="footnote">
 
-      </div>
-
-      <div
-        id="candidateDetails"
-        class="details">
-
-        <div class="empty">
-          Select a candidate to view details.
-        </div>
-
-      </div>
+      Scores are derived from evidence available in the uploaded
+      resume, public GitHub repositories and submitted assessment
+      results. Missing evidence is not treated as positive evidence.
 
     </div>
 
@@ -792,22 +1124,97 @@
 </main>
 
 
-<!-- SCHEDULE MODAL -->
+<!-- JOB MODAL -->
 
 <div
   class="modal"
-  id="scheduleModal">
+  id="jobModal"
+>
 
   <div class="modal-card">
 
     <h2>
-      Schedule Interview
+      Set position
+    </h2>
+
+    <div class="modal-description">
+      Define the role and job description used by the AI evaluation.
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Job title
+      </label>
+
+      <input
+        id="jobTitleInput"
+        value="AI Engineer"
+      />
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Job description
+      </label>
+
+      <textarea
+        id="jobDescriptionInput"
+      >We are looking for an AI Engineer with strong Python programming, machine learning, deep learning, NLP, LLM, FastAPI, backend engineering, GitHub, and problem-solving skills. Candidates should demonstrate practical AI projects, software engineering ability, and relevant technical experience.</textarea>
+
+    </div>
+
+
+    <div class="modal-actions">
+
+      <button
+        class="btn"
+        onclick="closeJobModal()"
+      >
+        Cancel
+      </button>
+
+      <button
+        class="btn dark"
+        onclick="createJob()"
+      >
+        Save position
+      </button>
+
+    </div>
+
+
+    <div
+      id="jobStatus"
+      class="ingestion-status"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- INTERVIEW MODAL -->
+
+<div
+  class="modal"
+  id="scheduleModal"
+>
+
+  <div class="modal-card">
+
+    <h2>
+      Schedule interview
     </h2>
 
     <div
-      class="muted"
-      id="scheduleCandidate">
-    </div>
+      class="modal-description"
+      id="scheduleCandidate"
+    ></div>
 
 
     <div class="field">
@@ -842,13 +1249,15 @@
 
       <button
         class="btn"
-        onclick="closeSchedule()">
+        onclick="closeSchedule()"
+      >
         Cancel
       </button>
 
       <button
         class="btn primary"
-        onclick="scheduleInterview()">
+        onclick="scheduleInterview()"
+      >
         Create Google Meet
       </button>
 
@@ -857,8 +1266,8 @@
 
     <div
       id="scheduleStatus"
-      class="status">
-    </div>
+      class="ingestion-status"
+    ></div>
 
   </div>
 
@@ -866,34 +1275,37 @@
 
 
 <div
+  id="toast"
   class="toast"
-  id="toast">
-</div>
+></div>
 
 
 <script>
 
-  const JOB_ID = 1;
-
+  let currentJobId = null;
   let rankings = [];
-
   let selectedCandidate = null;
+  let screeningPoll = null;
 
-  let scheduledInterviews = 0;
 
+  /* --------------------------------
+     HELPERS
+  -------------------------------- */
 
-  /* -----------------------------
-     UI HELPERS
-  ----------------------------- */
+  function setStatus(
+    elementId,
+    message,
+    ok = false
+  ) {
 
-  function setStatus(id, message, ok = false) {
+    const element =
+      document.getElementById(elementId);
 
-    const el = document.getElementById(id);
+    element.textContent =
+      message || "";
 
-    el.textContent = message || "";
-
-    el.className =
-      "status " +
+    element.className =
+      "ingestion-status " +
       (
         ok
           ? "ok"
@@ -904,35 +1316,41 @@
                 : ""
             )
       );
+
   }
 
 
   function toast(message) {
 
-    const el = document.getElementById("toast");
+    const element =
+      document.getElementById("toast");
 
-    el.textContent = message;
+    element.textContent =
+      message;
 
-    el.classList.add("show");
+    element.classList.add("show");
 
     setTimeout(
-      () => el.classList.remove("show"),
+      () => element.classList.remove("show"),
       3500
     );
+
   }
 
 
   async function parseResponse(response) {
 
-    const text = await response.text();
+    const text =
+      await response.text();
 
     let data = {};
 
     try {
 
-      data = text
-        ? JSON.parse(text)
-        : {};
+      data =
+        text
+          ? JSON.parse(text)
+          : {};
 
     } catch (_) {
 
@@ -955,18 +1373,26 @@
 
 
     return data;
+
   }
 
 
   function numeric(value) {
 
-    return (
+    if (
       value === null ||
       value === undefined ||
       value === ""
-    )
-      ? null
-      : Number(value);
+    ) {
+      return null;
+    }
+
+    const number =
+      Number(value);
+
+    return Number.isFinite(number)
+      ? number
+      : null;
 
   }
 
@@ -985,53 +1411,70 @@
     return String(value ?? "")
       .replace(
         /[&<>"']/g,
-        c => ({
+        character => ({
           "&": "&amp;",
           "<": "&lt;",
           ">": "&gt;",
           '"': "&quot;",
           "'": "&#039;"
-        }[c])
+        }[character])
       );
 
   }
 
 
-  /* -----------------------------
-     FILE UPLOAD
-  ----------------------------- */
+  /* --------------------------------
+     JOB
+  -------------------------------- */
 
-  async function uploadFile(
-    inputId,
-    endpoint,
-    statusId
-  ) {
+  function openJobModal() {
 
-    const input =
-      document.getElementById(inputId);
+    document
+      .getElementById("jobModal")
+      .classList.add("open");
+
+  }
 
 
-    if (!input.files.length) {
+  function closeJobModal() {
+
+    document
+      .getElementById("jobModal")
+      .classList.remove("open");
+
+  }
+
+
+  async function createJob() {
+
+    const title =
+      document
+        .getElementById("jobTitleInput")
+        .value
+        .trim();
+
+
+    const description =
+      document
+        .getElementById("jobDescriptionInput")
+        .value
+        .trim();
+
+
+    if (!title || !description) {
 
       setStatus(
-        statusId,
-        "Please choose a CSV or XLSX file."
+        "jobStatus",
+        "Job title and description are required."
       );
 
       return;
     }
 
 
-    const file = input.files[0];
-
-    const formData = new FormData();
-
-    formData.append("file", file);
-
-
     setStatus(
-      statusId,
-      "Uploading..."
+      "jobStatus",
+      "Saving position..."
     );
 
 
@@ -1039,10 +1482,17 @@
 
       const response =
         await fetch(
-          endpoint,
+          "/api/jobs",
           {
             method: "POST",
-            body: formData
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+            body: JSON.stringify({
+              title,
+              description
+            })
           }
         );
 
@@ -1051,29 +1501,186 @@
         await parseResponse(response);
 
 
-      const imported =
-        data.imported ??
-        data.created ??
-        0;
+      currentJobId =
+        data.id;
 
-      const updated =
-        data.updated ??
-        0;
 
-      const skipped =
-        data.skipped ??
-        0;
+      document
+        .getElementById("positionTitle")
+        .textContent =
+          data.title;
 
-      const total =
-        data.total_rows ??
-        data.total ??
-        "—";
+
+      document
+        .getElementById("positionMeta")
+        .textContent =
+          `Position #${data.id} · ready for screening`;
 
 
       setStatus(
-        statusId,
-        `Uploaded ${total} rows • imported/created: ${imported} • updated: ${updated} • skipped: ${skipped}`,
+        "jobStatus",
+        `Position #${data.id} saved successfully.`,
         true
+      );
+
+
+      setPipelineState(
+        "Ready to screen"
+      );
+
+
+      toast(
+        "Position saved."
+      );
+
+
+      setTimeout(
+        closeJobModal,
+        400
+      );
+
+    } catch (error) {
+
+      setStatus(
+        "jobStatus",
+        `Failed: ${error.message}`
+      );
+
+    }
+
+  }
+
+
+  /* --------------------------------
+     SINGLE DATASET INGESTION
+  -------------------------------- */
+
+  async function uploadDataset() {
+
+    const input =
+      document.getElementById(
+        "datasetFile"
+      );
+
+
+    if (!input.files.length) {
+
+      setStatus(
+        "datasetStatus",
+        "Please choose the candidate dataset."
+      );
+
+      return;
+    }
+
+
+    const file =
+      input.files[0];
+
+
+    setStatus(
+      "datasetStatus",
+      "Uploading candidate and assessment data..."
+    );
+
+
+    try {
+
+      /*
+        IMPORTANT:
+        The same workbook is sent to both existing
+        backend ingestion endpoints.
+
+        Candidate endpoint reads Response sheet.
+        Test-result endpoint reads Test Result sheet.
+      */
+
+
+      const candidateForm =
+        new FormData();
+
+      candidateForm.append(
+        "file",
+        file
+      );
+
+
+      const candidateResponse =
+        await fetch(
+          "/api/candidates/upload",
+          {
+            method: "POST",
+            body: candidateForm
+          }
+        );
+
+
+      const candidateData =
+        await parseResponse(
+          candidateResponse
+        );
+
+
+      const testForm =
+        new FormData();
+
+      testForm.append(
+        "file",
+        file
+      );
+
+
+      const testResponse =
+        await fetch(
+          "/api/test-results/upload",
+          {
+            method: "POST",
+            body: testForm
+          }
+        );
+
+
+      const testData =
+        await parseResponse(
+          testResponse
+        );
+
+
+      const candidateImported =
+        candidateData.imported ??
+        candidateData.created ??
+        0;
+
+
+      const candidateSkipped =
+        candidateData.skipped ??
+        0;
+
+
+      const testCreated =
+        testData.created ??
+        testData.imported ??
+        0;
+
+
+      const testUpdated =
+        testData.updated ??
+        0;
+
+
+      setStatus(
+        "datasetStatus",
+        `Candidate data: ${candidateImported} imported, ${candidateSkipped} skipped · Assessment data: ${testCreated} created, ${testUpdated} updated`,
+        true
+      );
+
+
+      updateStat(
+        "candidateCount",
+        candidateData.imported ??
+        candidateData.created ??
+        candidateData.total_rows ??
+        0
       );
 
 
@@ -1082,14 +1689,17 @@
       );
 
 
-      await loadRankings();
+      setPipelineState(
+        "Data ready · Run screening"
+      );
 
     } catch (error) {
 
       setStatus(
-        statusId,
+        "datasetStatus",
         `Failed: ${error.message}`
       );
+
 
       toast(
         `Upload failed: ${error.message}`
@@ -1100,37 +1710,36 @@
   }
 
 
-  function uploadCandidates() {
+  /* --------------------------------
+     SCREENING
+  -------------------------------- */
 
-    uploadFile(
-      "candidateFile",
-      "/api/candidates/upload",
-      "candidateUploadStatus"
+  async function runScreening() {
+
+    if (!currentJobId) {
+
+      toast(
+        "Set the position before running screening."
+      );
+
+      openJobModal();
+
+      return;
+    }
+
+
+    setPipelineState(
+      "Screening started..."
     );
 
-  }
+
+    resetPipelineSteps();
 
 
-  function uploadTestResults() {
-
-    uploadFile(
-      "testFile",
-      "/api/test-results/upload",
-      "testUploadStatus"
-    );
-
-  }
-
-
-  /* -----------------------------
-     SCREENING PIPELINE
-  ----------------------------- */
-
-  async function processResumes() {
-
-    setStatus(
-      "pipelineStatus",
-      "Processing candidate resumes..."
+    setStep(
+      "stepResume",
+      "active",
+      "Processing resumes..."
     );
 
 
@@ -1138,7 +1747,7 @@
 
       const response =
         await fetch(
-          `/api/jobs/${JOB_ID}/process-resumes`,
+          `/api/screening/run/${currentJobId}`,
           {
             method: "POST"
           }
@@ -1146,27 +1755,32 @@
 
 
       const data =
-        await parseResponse(response);
+        await parseResponse(
+          response
+        );
 
 
-      setStatus(
-        "pipelineStatus",
-        `Resume processing complete. Processed: ${data.processed ?? "—"} • Failed: ${data.failed ?? 0}`,
-        true
+      setPipelineState(
+        "Screening running"
       );
 
 
-      toast(
-        "Resume processing completed."
+      setPipelineMessage(
+        data.message ||
+        "Screening pipeline started."
       );
 
 
-      await loadRankings();
+      pollScreeningStatus();
 
     } catch (error) {
 
-      setStatus(
-        "pipelineStatus",
+      setPipelineState(
+        "Screening failed"
+      );
+
+
+      setPipelineMessage(
         `Failed: ${error.message}`
       );
 
@@ -1175,45 +1789,210 @@
   }
 
 
-  async function runEvaluation() {
+  async function pollScreeningStatus() {
 
-    setStatus(
-      "pipelineStatus",
-      "AI evaluation queued. This runs in the background..."
+    if (screeningPoll) {
+
+      clearInterval(
+        screeningPoll
+      );
+
+    }
+
+
+    const poll =
+      async () => {
+
+        try {
+
+          const response =
+            await fetch(
+              `/api/screening/run/${currentJobId}/status`
+            );
+
+
+          const data =
+            await parseResponse(
+              response
+            );
+
+
+          updatePipelineFromStatus(
+            data
+          );
+
+
+          if (
+            data.status === "completed" ||
+            data.status === "failed"
+          ) {
+
+            clearInterval(
+              screeningPoll
+            );
+
+            screeningPoll =
+              null;
+
+
+            if (
+              data.status === "completed"
+            ) {
+
+              await loadRankings();
+
+            }
+
+          }
+
+        } catch (error) {
+
+          setPipelineMessage(
+            `Status check failed: ${error.message}`
+          );
+
+        }
+
+      };
+
+
+    await poll();
+
+
+    screeningPoll =
+      setInterval(
+        poll,
+        2500
+      );
+
+  }
+
+
+  function updatePipelineFromStatus(
+    data
+  ) {
+
+    const status =
+      String(
+        data.status || ""
+      ).toLowerCase();
+
+
+    setPipelineMessage(
+      data.message ||
+      "Screening in progress..."
     );
 
 
-    try {
+    if (
+      status === "processing_resumes"
+    ) {
 
-      const response =
-        await fetch(
-          `/api/jobs/${JOB_ID}/evaluate`,
-          {
-            method: "POST"
-          }
-        );
+      setStep(
+        "stepResume",
+        "active",
+        "Processing..."
+      );
 
-
-      const data =
-        await parseResponse(response);
+    }
 
 
-      setStatus(
-        "pipelineStatus",
-        `${data.message || "AI evaluation started."} Refresh rankings after processing finishes.`,
-        true
+    else if (
+      status === "evaluating"
+    ) {
+
+      setStep(
+        "stepResume",
+        "done",
+        "Complete"
       );
 
 
-      toast(
-        "AI evaluation started."
+      setStep(
+        "stepAI",
+        "active",
+        "Running..."
       );
 
-    } catch (error) {
 
-      setStatus(
-        "pipelineStatus",
-        `Failed: ${error.message}`
+      setStep(
+        "stepGithub",
+        "active",
+        "Running..."
+      );
+
+    }
+
+
+    else if (
+      status === "completed"
+    ) {
+
+      setStep(
+        "stepResume",
+        "done",
+        "Complete"
+      );
+
+
+      setStep(
+        "stepAI",
+        "done",
+        "Complete"
+      );
+
+
+      setStep(
+        "stepGithub",
+        "done",
+        "Complete"
+      );
+
+
+      setStep(
+        "stepRanking",
+        "done",
+        "Complete"
+      );
+
+
+      setPipelineState(
+        "Screening complete"
+      );
+
+
+      const rankingsFromStatus =
+        Array.isArray(data.rankings)
+          ? data.rankings
+          : [];
+
+
+      if (
+        rankingsFromStatus.length
+      ) {
+
+        rankings =
+          rankingsFromStatus;
+
+        renderRankings();
+
+      }
+
+    }
+
+
+    else if (
+      status === "failed"
+    ) {
+
+      setPipelineState(
+        "Screening failed"
+      );
+
+      setStep(
+        "stepResume",
+        "active",
+        "Failed"
       );
 
     }
@@ -1221,137 +2000,147 @@
   }
 
 
-  async function analyzeGithub() {
+  function resetPipelineSteps() {
 
-    setStatus(
-      "pipelineStatus",
-      "Analyzing candidate GitHub repositories..."
-    );
+    [
+      "stepResume",
+      "stepAI",
+      "stepGithub",
+      "stepRanking"
+    ].forEach(
+      id => {
 
-
-    try {
-
-      const response =
-        await fetch(
-          "/api/screening/github",
-          {
-            method: "POST"
-          }
+        setStep(
+          id,
+          "",
+          "Waiting"
         );
 
-
-      const data =
-        await parseResponse(response);
-
-
-      const count =
-        data.analyzed ??
-        data.processed ??
-        data.total ??
-        "selected candidates";
-
-
-      setStatus(
-        "pipelineStatus",
-        `GitHub analysis completed for ${count} candidates.`,
-        true
-      );
-
-
-      toast(
-        "GitHub analysis completed."
-      );
-
-
-      await loadRankings();
-
-    } catch (error) {
-
-      setStatus(
-        "pipelineStatus",
-        `Failed: ${error.message}`
-      );
-
-    }
+      }
+    );
 
   }
 
 
-  /* -----------------------------
+  function setStep(
+    id,
+    state,
+    message
+  ) {
+
+    const element =
+      document.getElementById(id);
+
+
+    element.className =
+      "pipeline-step " +
+      state;
+
+
+    const statusElement =
+      element.querySelector(
+        ".step-status"
+      );
+
+
+    statusElement.textContent =
+      message;
+
+  }
+
+
+  function setPipelineState(
+    message
+  ) {
+
+    document
+      .getElementById(
+        "pipelineState"
+      )
+      .textContent =
+        message;
+
+  }
+
+
+  function setPipelineMessage(
+    message
+  ) {
+
+    document
+      .getElementById(
+        "pipelineMessage"
+      )
+      .textContent =
+        message || "";
+
+  }
+
+
+  /* --------------------------------
      RANKINGS
-  ----------------------------- */
+  -------------------------------- */
 
   async function loadRankings() {
 
-    document.getElementById(
-      "rankingStatus"
-    ).textContent = "Loading...";
+    if (!currentJobId) {
+
+      return;
+    }
 
 
     try {
 
-      const response =
-        await fetch(
-          `/api/screening/ranking/${JOB_ID}`
-        );
-
-
       const data =
-        await parseResponse(response);
+        await parseResponse(
+          await fetch(
+            `/api/screening/ranking/${currentJobId}`
+          )
+        );
 
 
       rankings =
         Array.isArray(data)
           ? data
-          : (data.rankings || []);
+          : (
+              data.rankings ||
+              []
+            );
 
 
       renderRankings();
 
-
-      document.getElementById(
-        "rankingStatus"
-      ).textContent =
-        `${rankings.length} candidates`;
-
     } catch (error) {
 
-      document.getElementById(
-        "rankingStatus"
-      ).textContent =
-        "Failed to load";
+      document
+        .getElementById(
+          "rankingBody"
+        )
+        .innerHTML = `
 
+          <tr>
 
-      document.getElementById(
-        "rankingBody"
-      ).innerHTML = `
-        <tr>
-          <td colspan="7">
-            <div class="empty">
-              Unable to load rankings.
-              <br>
-              <small>
-                ${escapeHtml(error.message)}
-              </small>
-            </div>
-          </td>
-        </tr>
-      `;
+            <td colspan="8">
 
+              <div class="empty">
 
-      document.getElementById(
-        "candidateCount"
-      ).textContent = "—";
+                Unable to load rankings.
 
+                <br>
 
-      document.getElementById(
-        "shortlistCount"
-      ).textContent = "—";
+                <small>
+                  ${escapeHtml(
+                    error.message
+                  )}
+                </small>
 
+              </div>
 
-      document.getElementById(
-        "topScore"
-      ).textContent = "—";
+            </td>
+
+          </tr>
+
+        `;
 
     }
 
@@ -1369,301 +2158,276 @@
     if (!rankings.length) {
 
       body.innerHTML = `
+
         <tr>
-          <td colspan="7">
+
+          <td colspan="8">
+
             <div class="empty">
-              No candidate rankings yet.
-              <br>
-              Upload the candidate dataset to begin.
+              No rankings yet.
             </div>
+
           </td>
+
         </tr>
+
       `;
 
 
-      document.getElementById(
-        "candidateCount"
-      ).textContent = "0";
+      updateStat(
+        "aiCount",
+        0
+      );
 
+      updateStat(
+        "githubCount",
+        0
+      );
 
-      document.getElementById(
-        "shortlistCount"
-      ).textContent = "0";
-
-
-      document.getElementById(
-        "topScore"
-      ).textContent = "—";
+      updateStat(
+        "rankedCount",
+        0
+      );
 
 
       return;
     }
 
 
-    /*
-      Both SHORTLIST and STRONG_SHORTLIST
-      count as shortlisted candidates.
-    */
+    updateStat(
+      "aiCount",
+      rankings.length
+    );
 
-    const shortlisted =
+
+    const githubCount =
       rankings.filter(
-        r => {
-
-          const decision =
-            String(
-              r.recommendation || ""
-            ).toLowerCase();
-
-          return (
-            decision === "shortlist" ||
-            decision === "strong_shortlist"
-          );
-
-        }
+        candidate =>
+          numeric(
+            candidate.github_score
+          ) !== null
       ).length;
 
 
-    const top =
-      numeric(
-        rankings[0].final_score
-      );
+    updateStat(
+      "githubCount",
+      githubCount
+    );
 
 
-    document.getElementById(
-      "candidateCount"
-    ).textContent =
-      rankings.length;
-
-
-    document.getElementById(
-      "shortlistCount"
-    ).textContent =
-      shortlisted;
-
-
-    document.getElementById(
-      "topScore"
-    ).textContent =
-      top === null
-        ? "—"
-        : top.toFixed(2);
+    updateStat(
+      "rankedCount",
+      rankings.length
+    );
 
 
     body.innerHTML =
-      rankings.map(
-        (r, index) => {
+      rankings
+        .map(
+          (candidate, index) => {
 
-          const recommendation =
-            String(
-              r.recommendation ||
-              "pending"
-            ).toLowerCase();
-
-
-          const github =
-            numeric(
-              r.github_score
-            );
+            const recommendation =
+              String(
+                candidate.recommendation ||
+                "pending"
+              ).toLowerCase();
 
 
-          const test =
-            numeric(
-              r.test_score
-            );
+            const finalScore =
+              numeric(
+                candidate.final_score
+              );
 
 
-          const ai =
-            numeric(
-              r.ai_score
-            );
+            const isShortlisted =
+              recommendation ===
+                "shortlist" ||
+              recommendation ===
+                "strong_shortlist";
 
 
-          const finalScore =
-            numeric(
-              r.final_score
-            );
+            return `
+
+              <tr
+                class="candidate-row"
+                onclick="showCandidate(${index})"
+              >
+
+                <td class="rank">
+                  #${
+                    candidate.rank ??
+                    index + 1
+                  }
+                </td>
 
 
-          return `
-            <tr
-              class="candidate-row"
-              onclick="showCandidate(${index})"
-            >
+                <td>
 
-              <td class="rank">
-                #${r.rank ?? index + 1}
-              </td>
+                  <div class="candidate-name">
+                    ${escapeHtml(
+                      candidate.candidate_name ||
+                      "Unknown"
+                    )}
+                  </div>
+
+                  <div class="candidate-email">
+                    ${escapeHtml(
+                      candidate.email ||
+                      ""
+                    )}
+                  </div>
+
+                </td>
 
 
-              <td>
-
-                <div class="candidate-name">
-                  ${escapeHtml(
-                    r.candidate_name ||
-                    "Unknown"
+                <td class="score">
+                  ${formatScore(
+                    numeric(
+                      candidate.ai_score
+                    )
                   )}
-                </div>
+                </td>
 
-                <div class="muted">
-                  ${escapeHtml(
-                    r.email || ""
+
+                <td>
+                  ${formatScore(
+                    numeric(
+                      candidate.github_score
+                    )
                   )}
-                </div>
-
-              </td>
+                </td>
 
 
-              <td>
-                ${formatScore(ai)}
-              </td>
-
-
-              <td>
-                ${formatScore(github)}
-              </td>
-
-
-              <td>
-                ${formatScore(test)}
-              </td>
-
-
-              <td class="score">
-                ${formatScore(finalScore)}
-              </td>
-
-
-              <td>
-
-                <span
-                  class="badge ${recommendation}"
-                >
-                  ${escapeHtml(
-                    recommendation
+                <td>
+                  ${formatScore(
+                    numeric(
+                      candidate.test_score
+                    )
                   )}
-                </span>
+                </td>
 
-              </td>
 
-            </tr>
-          `;
+                <td class="score">
+                  ${formatScore(
+                    finalScore
+                  )}
+                </td>
 
-        }
-      ).join("");
+
+                <td>
+
+                  <span
+                    class="badge ${recommendation}"
+                  >
+                    ${escapeHtml(
+                      recommendation
+                    )}
+                  </span>
+
+                </td>
+
+
+                <td>
+
+                  ${
+                    isShortlisted
+                      ? `
+                        <button
+                          class="interview-btn"
+                          onclick="
+                            event.stopPropagation();
+                            selectCandidate(${index});
+                            openSchedule();
+                          "
+                        >
+                          Interview
+                        </button>
+                      `
+                      : ""
+                  }
+
+                </td>
+
+              </tr>
+
+            `;
+
+          }
+        )
+        .join("");
 
   }
 
 
-  /* -----------------------------
+  /* --------------------------------
      CANDIDATE DETAILS
-  ----------------------------- */
+  -------------------------------- */
 
-  function showCandidate(index) {
+  function selectCandidate(
+    index
+  ) {
 
     selectedCandidate =
       rankings[index];
 
+  }
 
-    const r =
+
+  function showCandidate(
+    index
+  ) {
+
+    selectCandidate(
+      index
+    );
+
+
+    const candidate =
       selectedCandidate;
-
-
-    const ai =
-      numeric(
-        r.ai_score
-      );
-
-
-    const github =
-      numeric(
-        r.github_score
-      );
-
-
-    const test =
-      numeric(
-        r.test_score
-      );
-
-
-    const finalScore =
-      numeric(
-        r.final_score
-      );
 
 
     const recommendation =
       String(
-        r.recommendation ||
+        candidate.recommendation ||
         "pending"
       ).toLowerCase();
 
 
-    /*
-      ONLY shortlisted candidates
-      are allowed to schedule interviews.
-    */
-
-    const canInterview =
-      recommendation === "shortlist" ||
-      recommendation === "strong_shortlist";
+    const isShortlisted =
+      recommendation ===
+        "shortlist" ||
+      recommendation ===
+        "strong_shortlist";
 
 
-    const interviewSection =
-      canInterview
-
-        ? `
-          <div class="detail-group">
-
-            <h4>
-              Interview
-            </h4>
-
-            <button
-              class="btn primary small"
-              onclick="openSchedule()"
-            >
-              Schedule interview + Google Meet
-            </button>
-
-          </div>
-        `
-
-        : `
-          <div class="detail-group">
-
-            <h4>
-              Interview
-            </h4>
-
-            <div class="muted">
-              Interview scheduling is available
-              only for shortlisted candidates.
-            </div>
-
-          </div>
-        `;
+    const panel =
+      document.getElementById(
+        "detailsPanel"
+      );
 
 
-    document.getElementById(
-      "candidateDetails"
-    ).innerHTML = `
+    panel.innerHTML = `
 
-      <div class="candidate-header">
+      <div class="details-header">
 
         <div>
 
-          <h2>
+          <div class="details-name">
+
             ${escapeHtml(
-              r.candidate_name ||
+              candidate.candidate_name ||
               "Unknown"
             )}
-          </h2>
 
-          <div class="muted">
+          </div>
+
+          <div class="details-email">
+
             ${escapeHtml(
-              r.email || ""
+              candidate.email ||
+              ""
             )}
+
           </div>
 
         </div>
@@ -1680,109 +2444,89 @@
       </div>
 
 
-      <div class="score-block">
+      <div class="detail-scores">
 
-        ${scoreBar(
-          "Final Score",
-          finalScore
+        ${detailScore(
+          "AI fit",
+          candidate.ai_score
         )}
 
-        ${scoreBar(
-          "AI Evaluation",
-          ai
-        )}
-
-        ${scoreBar(
+        ${detailScore(
           "GitHub",
-          github
+          candidate.github_score
         )}
 
-        ${scoreBar(
-          "Test Performance",
-          test
+        ${detailScore(
+          "Assessment",
+          candidate.test_score
+        )}
+
+        ${detailScore(
+          "Final",
+          candidate.final_score
         )}
 
       </div>
 
 
-      <div class="detail-group">
+      ${
+        isShortlisted
+          ? `
 
-        <h4>
-          Ranking
-        </h4>
+            <div
+              style="
+                margin-top:24px;
+                padding-top:18px;
+                border-top:1px solid #d9d5cc;
+              "
+            >
 
-        <div>
-          Rank:
-          <strong>
-            #${r.rank ?? "—"}
-          </strong>
-        </div>
+              <button
+                class="btn dark small"
+                onclick="openSchedule()"
+              >
+                Schedule interview + Google Meet
+              </button>
 
-        <div>
-          Final score:
-          <strong>
-            ${formatScore(finalScore)}
-          </strong>
-        </div>
+            </div>
 
-      </div>
-
-
-      ${interviewSection}
+          `
+          : ""
+      }
 
     `;
+
+
+    panel.classList.add(
+      "open"
+    );
+
+
+    panel.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest"
+    });
 
   }
 
 
-  function scoreBar(
+  function detailScore(
     label,
     value
   ) {
 
-    const shown =
-      value === null
-        ? "N/A"
-        : value.toFixed(2);
-
-
-    const width =
-      value === null
-        ? 0
-        : Math.max(
-            0,
-            Math.min(
-              100,
-              value
-            )
-          );
-
-
     return `
 
-      <div
-        style="margin-bottom:14px"
-      >
+      <div class="detail-score">
 
-        <div class="score-line">
-
-          <span>
-            ${label}
-          </span>
-
-          <strong>
-            ${shown}
-          </strong>
-
+        <div class="detail-score-label">
+          ${label}
         </div>
 
-
-        <div class="bar">
-
-          <div
-            style="width:${width}%"
-          ></div>
-
+        <div class="detail-score-value">
+          ${formatScore(
+            numeric(value)
+          )}
         </div>
 
       </div>
@@ -1792,34 +2536,67 @@
   }
 
 
-  /* -----------------------------
-     INTERVIEW SCHEDULING
-  ----------------------------- */
+  /* --------------------------------
+     INTERVIEW
+  -------------------------------- */
 
   function openSchedule() {
 
     if (!selectedCandidate) {
+
       return;
     }
 
 
-    document.getElementById(
-      "scheduleCandidate"
-    ).textContent =
-
-      `${selectedCandidate.candidate_name || ""}
-       •
-       ${selectedCandidate.email || ""}`;
+    const recommendation =
+      String(
+        selectedCandidate.recommendation ||
+        ""
+      ).toLowerCase();
 
 
-    document.getElementById(
-      "scheduleStatus"
-    ).textContent = "";
+    if (
+      recommendation !== "shortlist" &&
+      recommendation !== "strong_shortlist"
+    ) {
+
+      toast(
+        "Interview scheduling is only available for shortlisted candidates."
+      );
+
+      return;
+    }
 
 
-    document.getElementById(
-      "scheduleModal"
-    ).classList.add("open");
+    document
+      .getElementById(
+        "scheduleCandidate"
+      )
+      .textContent =
+        `${
+          selectedCandidate.candidate_name ||
+          ""
+        } · ${
+          selectedCandidate.email ||
+          ""
+        }`;
+
+
+    document
+      .getElementById(
+        "scheduleStatus"
+      )
+      .textContent =
+        "";
+
+
+    document
+      .getElementById(
+        "scheduleModal"
+      )
+      .classList.add(
+        "open"
+      );
 
 
     const now =
@@ -1833,34 +2610,44 @@
       );
 
 
-    document.getElementById(
-      "startTime"
-    ).value =
-      toLocalInput(now);
+    document
+      .getElementById(
+        "startTime"
+      )
+      .value =
+        toLocalInput(now);
 
 
-    document.getElementById(
-      "endTime"
-    ).value =
-      toLocalInput(end);
+    document
+      .getElementById(
+        "endTime"
+      )
+      .value =
+        toLocalInput(end);
 
   }
 
 
   function closeSchedule() {
 
-    document.getElementById(
-      "scheduleModal"
-    ).classList.remove("open");
+    document
+      .getElementById(
+        "scheduleModal"
+      )
+      .classList.remove(
+        "open"
+      );
 
   }
 
 
-  function toLocalInput(date) {
+  function toLocalInput(
+    date
+  ) {
 
     const pad =
-      n =>
-        String(n)
+      number =>
+        String(number)
           .padStart(2, "0");
 
 
@@ -1878,49 +2665,25 @@
   async function scheduleInterview() {
 
     if (!selectedCandidate) {
-      return;
-    }
-
-
-    /*
-      Backend protection in the UI:
-      don't allow interview scheduling
-      for BORDERLINE or REJECT.
-    */
-
-    const recommendation =
-      String(
-        selectedCandidate.recommendation ||
-        ""
-      ).toLowerCase();
-
-
-    const canInterview =
-      recommendation === "shortlist" ||
-      recommendation === "strong_shortlist";
-
-
-    if (!canInterview) {
-
-      setStatus(
-        "scheduleStatus",
-        "Interview scheduling is available only for shortlisted candidates."
-      );
 
       return;
     }
 
 
     const start =
-      document.getElementById(
-        "startTime"
-      ).value;
+      document
+        .getElementById(
+          "startTime"
+        )
+        .value;
 
 
     const end =
-      document.getElementById(
-        "endTime"
-      ).value;
+      document
+        .getElementById(
+          "endTime"
+        )
+        .value;
 
 
     if (!start || !end) {
@@ -1932,16 +2695,6 @@
 
       return;
     }
-
-
-    const startISO =
-      new Date(start)
-        .toISOString();
-
-
-    const endISO =
-      new Date(end)
-        .toISOString();
 
 
     setStatus(
@@ -1956,16 +2709,22 @@
         new URLSearchParams({
 
           candidate_name:
-            selectedCandidate.candidate_name || "",
+            selectedCandidate.candidate_name ||
+            "",
 
           candidate_email:
-            selectedCandidate.email || "",
+            selectedCandidate.email ||
+            "",
 
           start_time:
-            startISO,
+            new Date(
+              start
+            ).toISOString(),
 
           end_time:
-            endISO
+            new Date(
+              end
+            ).toISOString()
 
         });
 
@@ -1987,18 +2746,13 @@
 
       setStatus(
         "scheduleStatus",
-        `Interview created. Meet: ${data.meet_link || "created"}`,
+        `Interview created. ${
+          data.meet_link
+            ? "Google Meet link generated."
+            : "Calendar event created."
+        }`,
         true
       );
-
-
-      scheduledInterviews += 1;
-
-
-      document.getElementById(
-        "interviewCount"
-      ).textContent =
-        scheduledInterviews;
 
 
       toast(
@@ -2017,13 +2771,38 @@
   }
 
 
-  /* -----------------------------
-     INITIAL LOAD
-  ----------------------------- */
+  /* --------------------------------
+     STATS
+  -------------------------------- */
+
+  function updateStat(
+    id,
+    value
+  ) {
+
+    document
+      .getElementById(id)
+      .textContent =
+        value ?? 0;
+
+  }
+
+
+  /* --------------------------------
+     INITIAL STATE
+  -------------------------------- */
 
   document.addEventListener(
     "DOMContentLoaded",
-    loadRankings
+    () => {
+
+      resetPipelineSteps();
+
+      setPipelineState(
+        "Ready"
+      );
+
+    }
   );
 
 </script>
