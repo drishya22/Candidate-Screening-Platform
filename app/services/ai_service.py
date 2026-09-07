@@ -262,6 +262,8 @@ def _evaluate_with_openrouter(prompt: str) -> dict:
 def evaluate_candidate(job_description: str, resume_text: str) -> dict:
     prompt = _build_prompt(job_description, resume_text)
 
+    gemini_error = None
+
     # Primary provider: Gemini
     try:
         result = _evaluate_with_gemini(prompt)
@@ -270,10 +272,12 @@ def evaluate_candidate(job_description: str, resume_text: str) -> dict:
 
         return result
 
-    except Exception as gemini_error:
+    except Exception as exc:
+        gemini_error = exc
+
         logger.warning(
             "Gemini evaluation failed. Falling back to OpenRouter: %s",
-            gemini_error,
+            exc,
         )
 
     # Fallback provider: OpenRouter
