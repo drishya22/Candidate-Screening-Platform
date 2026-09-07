@@ -1,29 +1,2032 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Screening Desk</title>
-<style>
-:root{--ink:#20252b;--muted:#737a82;--line:#ddd9d1;--paper:#f7f5f0;--white:#fffdfa;--accent:#c45b36;--accent-dark:#984329;--green:#34745b;--amber:#a36a20;--red:#a94747}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,textarea{font:inherit}button{cursor:pointer}.topbar{height:68px;border-bottom:1px solid var(--line);background:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 42px}.brand{display:flex;gap:12px;align-items:center}.mark{width:30px;height:30px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}.brand-name{font-weight:800;letter-spacing:-.3px}.top-note{font-size:12px;color:var(--muted)}.shell{max-width:1440px;margin:auto;padding:34px 42px 60px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;color:var(--accent);font-weight:800}.hero{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end;margin-bottom:30px}.hero h1{font-family:Georgia,serif;font-weight:500;font-size:46px;line-height:1.05;letter-spacing:-1.5px;margin:8px 0}.hero p{margin:0;color:var(--muted);max-width:650px;font-size:15px;line-height:1.6}.job-panel{border-top:1px solid var(--ink);border-bottom:1px solid var(--line);padding:18px 0;display:flex;justify-content:space-between;gap:20px;align-items:center}.job-title{font-size:20px;font-weight:750}.job-meta{font-size:12px;color:var(--muted);margin-top:4px}.btn{border:1px solid var(--ink);background:var(--ink);color:#fff;padding:11px 17px;font-weight:750;font-size:13px}.btn:hover{background:#353b42}.btn.terra{background:var(--accent);border-color:var(--accent)}.btn.terra:hover{background:var(--accent-dark)}.btn.light{background:transparent;color:var(--ink);border-color:var(--line)}.btn.light:hover{border-color:#aaa49b;background:#fff}.btn:disabled{opacity:.45;cursor:not-allowed}.metrics{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);margin-bottom:32px}.metric{padding:22px 18px 22px 0;border-right:1px solid var(--line);margin-right:18px}.metric:last-child{border-right:0}.metric-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:750}.metric-value{font-family:Georgia,serif;font-size:34px;margin-top:5px}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:15px}.section-head h2{font-family:Georgia,serif;font-size:27px;font-weight:500;margin:0}.section-head p{margin:4px 0 0;color:var(--muted);font-size:13px}.ingest{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:34px}.source{background:var(--white);border:1px solid var(--line);padding:20px}.source-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.source h3{margin:0;font-size:15px}.source-no{font-family:Georgia,serif;font-size:23px;color:#b6b0a7}.file-input{width:100%;border:1px dashed #bbb5ab;background:#faf8f3;padding:13px;font-size:13px}.source-actions{display:flex;gap:9px;margin-top:12px}.result{margin-top:12px;min-height:38px;padding:10px 12px;background:#f1efe9;color:#5e656d;font-size:12px;line-height:1.5;white-space:pre-wrap}.result.ok{background:#eaf2ed;color:var(--green)}.result.err{background:#f8eaea;color:var(--red)}.workflow{background:var(--white);border:1px solid var(--line);padding:24px;margin-bottom:34px}.workflow-track{display:grid;grid-template-columns:repeat(4,1fr);position:relative;margin-top:22px}.workflow-track:before{content:"";position:absolute;top:15px;left:5%;right:5%;height:1px;background:#cfcac1}.step{position:relative;padding-right:20px}.dot{width:31px;height:31px;background:var(--white);border:1px solid #a8a299;display:grid;place-items:center;font-size:11px;font-weight:800;position:relative;z-index:2}.step.active .dot{background:var(--accent);border-color:var(--accent);color:white}.step.done .dot{background:var(--green);border-color:var(--green);color:white}.step h3{font-size:13px;margin:12px 0 4px}.step p{font-size:11px;line-height:1.45;color:var(--muted);margin:0}.run-row{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);display:flex;align-items:center;gap:15px}.run-status{font-size:12px;color:var(--muted)}.progress{height:3px;background:#e4e0d9;flex:1;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--accent);transition:width .4s}.results{background:var(--white);border:1px solid var(--line);margin-bottom:34px}.results-head{padding:22px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.results-head h2{font-family:Georgia,serif;font-weight:500;font-size:27px;margin:0}.results-note{font-size:12px;color:var(--muted);margin-top:4px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:940px}th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#858078;font-weight:800;background:#f7f4ee;padding:12px 15px;border-bottom:1px solid var(--line)}td{padding:15px;border-bottom:1px solid #ebe7df;font-size:13px}tbody tr:hover{background:#fcfaf6}.rank{font-family:Georgia,serif;font-size:18px}.candidate{font-weight:750}.email{display:block;font-size:10px;color:#989188;margin-top:3px}.score{font-weight:750}.final{font-size:17px;font-weight:800}.badge{display:inline-block;padding:4px 8px;font-size:10px;text-transform:uppercase;letter-spacing:.5px;font-weight:850}.shortlist{background:#e4efe9;color:var(--green)}.borderline{background:#f5ead9;color:var(--amber)}.reject{background:#f4e2e2;color:var(--red)}.empty{padding:48px;text-align:center;color:var(--muted);font-size:13px}.empty strong{display:block;color:var(--ink);font-family:Georgia,serif;font-size:19px;font-weight:500;margin-bottom:6px}.footer-note{font-size:11px;color:#928c83;line-height:1.6}.modal{display:none;position:fixed;inset:0;background:rgba(32,37,43,.5);z-index:20;align-items:center;justify-content:center;padding:20px}.modal-box{background:var(--white);width:min(700px,100%);padding:28px;border:1px solid var(--line);box-shadow:0 20px 70px rgba(0,0,0,.18)}.modal-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:15px}.modal-head h2{font-family:Georgia,serif;font-weight:500;margin:0;font-size:25px}.close{border:0;background:none;font-size:25px;color:var(--muted)}label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.7px;font-weight:800;margin:17px 0 7px}input[type=text],input[type=email],input[type=datetime-local],textarea{width:100%;border:1px solid #cbc6bd;background:#fff;padding:11px 12px;outline:none}input:focus,textarea:focus{border-color:var(--accent)}textarea{min-height:180px;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.modal-status{margin-top:12px;font-size:12px;padding:10px;background:#f1efe9;white-space:pre-wrap}.modal-status.ok{background:#eaf2ed;color:var(--green)}.modal-status.err{background:#f8eaea;color:var(--red)}@media(max-width:900px){.shell{padding:25px 20px}.topbar{padding:0 20px}.hero{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.metric{border-bottom:1px solid var(--line)}.ingest{grid-template-columns:1fr}.workflow-track{grid-template-columns:1fr 1fr;gap:20px}.workflow-track:before{display:none}.job-panel{align-items:flex-start;flex-direction:column}}@media(max-width:560px){.metrics{grid-template-columns:1fr}.workflow-track{grid-template-columns:1fr}.hero h1{font-size:37px}.top-note{display:none}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Candidate Screening Platform</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fb;
+      color: #17233d;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
+    .topbar {
+      height: 74px;
+      background: white;
+      border-bottom: 1px solid #e7ebf2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #18243d;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .top-label {
+      color: #6d7890;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 34px 28px 60px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      letter-spacing: -0.8px;
+    }
+
+    .subtitle {
+      color: #72809a;
+      margin: 8px 0 28px;
+      font-size: 16px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e5e9f0;
+      border-radius: 16px;
+      box-shadow: 0 4px 18px rgba(25, 38, 65, .04);
+    }
+
+    .pipeline {
+      padding: 24px;
+      margin-bottom: 22px;
+    }
+
+    .job-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .job-title {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .job-id {
+      color: #8190a8;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-weight: 700;
+      background: #edf1f7;
+      color: #18243d;
+    }
+
+    .btn:hover {
+      filter: brightness(.97);
+    }
+
+    .btn.primary {
+      background: #18243d;
+      color: white;
+    }
+
+    .btn.success {
+      background: #e8f7ef;
+      color: #167348;
+    }
+
+    .btn.small {
+      padding: 8px 11px;
+      font-size: 13px;
+    }
+
+    .upload-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .upload-card {
+      padding: 20px;
+    }
+
+    .upload-card h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+    }
+
+    .upload-card p {
+      margin: 0 0 15px;
+      color: #78859d;
+      font-size: 13px;
+    }
+
+    .file-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    input[type=file] {
+      width: 100%;
+      padding: 10px;
+      border: 1px dashed #cbd3e0;
+      border-radius: 10px;
+      background: #fafbfc;
+      color: #68758d;
+    }
+
+    .status {
+      margin-top: 10px;
+      min-height: 20px;
+      color: #68758d;
+      font-size: 13px;
+    }
+
+    .status.ok {
+      color: #18764d;
+    }
+
+    .status.err {
+      color: #b42318;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .stat {
+      padding: 22px;
+    }
+
+    .stat-label {
+      color: #71809a;
+      font-size: 13px;
+    }
+
+    .stat-value {
+      margin-top: 10px;
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(340px, .9fr);
+      gap: 22px;
+    }
+
+    .section {
+      padding: 24px;
+      min-height: 400px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .muted {
+      color: #7a879e;
+      font-size: 13px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      padding: 12px 10px;
+      font-size: 11px;
+      color: #7c899f;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      border-bottom: 1px solid #e9edf3;
+    }
+
+    td {
+      padding: 14px 10px;
+      border-bottom: 1px solid #eef1f5;
+      font-size: 13px;
+    }
+
+    tr.candidate-row {
+      cursor: pointer;
+    }
+
+    tr.candidate-row:hover {
+      background: #fafbfe;
+    }
+
+    .rank {
+      font-weight: 800;
+    }
+
+    .candidate-name {
+      font-weight: 750;
+    }
+
+    .score {
+      font-weight: 800;
+    }
+
+    .badge {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: capitalize;
+    }
+
+    .badge.shortlist {
+      background: #e7f7ee;
+      color: #167348;
+    }
+
+    .badge.strong_shortlist {
+      background: #e1f4e9;
+      color: #0f6840;
+    }
+
+    .badge.borderline {
+      background: #fff5dc;
+      color: #996b00;
+    }
+
+    .badge.reject {
+      background: #fdeaea;
+      color: #b42318;
+    }
+
+    .badge.pending {
+      background: #edf1f7;
+      color: #68758d;
+    }
+
+    .empty {
+      padding: 70px 20px;
+      text-align: center;
+      color: #8490a5;
+    }
+
+    .details {
+      color: #5f6d85;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .candidate-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .candidate-header h2 {
+      margin: 0;
+      color: #17233d;
+      font-size: 23px;
+    }
+
+    .score-block {
+      margin-top: 22px;
+    }
+
+    .score-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .bar {
+      height: 8px;
+      background: #edf0f5;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .bar > div {
+      height: 100%;
+      background: #18243d;
+      border-radius: 99px;
+    }
+
+    .detail-group {
+      margin-top: 20px;
+    }
+
+    .detail-group h4 {
+      margin: 0 0 8px;
+      color: #17233d;
+    }
+
+    .detail-group ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(14, 23, 41, .48);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 20;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(500px, 100%);
+      background: white;
+      border-radius: 18px;
+      padding: 26px;
+    }
+
+    .modal-card h2 {
+      margin-top: 0;
+    }
+
+    .field {
+      margin: 14px 0;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .field input {
+      width: 100%;
+      border: 1px solid #d7dce6;
+      border-radius: 9px;
+      padding: 10px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 9px;
+      margin-top: 20px;
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      background: #18243d;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 10px;
+      display: none;
+      z-index: 30;
+      max-width: 420px;
+      font-size: 13px;
+    }
+
+    .toast.show {
+      display: block;
+    }
+
+    @media (max-width: 950px) {
+      .main-grid,
+      .upload-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .job-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .topbar {
+        padding: 0 18px;
+      }
+
+      .container {
+        padding: 24px 15px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header class="topbar"><div class="brand"><div class="mark">CS</div><div class="brand-name">Screening Desk</div></div><div class="top-note">Recruiting intelligence workspace</div></header>
-<main class="shell">
-<section class="hero"><div><div class="eyebrow">Candidate intelligence</div><h1>Find the strongest<br>candidates faster.</h1><p>Turn resumes, public engineering work and assessment results into one evidence-based shortlist.</p></div><div><button class="btn terra" onclick="startScreening()" id="runBtn">Run screening</button></div></section>
-<section class="job-panel"><div><div class="job-title" id="jobTitleDisplay">No position selected</div><div class="job-meta" id="jobMeta">Create a job description before starting the screening pipeline.</div></div><button class="btn light" onclick="openJobModal()">Set position</button></section>
-<div style="height:24px"></div>
-<section class="metrics"><div class="metric"><div class="metric-label">Candidates</div><div class="metric-value" id="candidateCount">0</div></div><div class="metric"><div class="metric-label">AI evaluated</div><div class="metric-value" id="evaluationCount">0</div></div><div class="metric"><div class="metric-label">GitHub analysed</div><div class="metric-value" id="githubCount">0</div></div><div class="metric"><div class="metric-label">Ranked</div><div class="metric-value" id="rankingCount">0</div></div></section>
-<section><div class="section-head"><div><h2>Data sources</h2><p>Bring in the candidate pool and assessment outcomes.</p></div></div><div class="ingest"><div class="source"><div class="source-top"><h3>Candidate dataset</h3><span class="source-no">01</span></div><input class="file-input" type="file" id="candidateFile" accept=".csv,.xlsx,.xls"><div class="source-actions"><button class="btn" onclick="uploadCandidates()">Import candidates</button></div><div class="result" id="candidateStatus">Waiting for a dataset.</div></div><div class="source"><div class="source-top"><h3>Assessment results</h3><span class="source-no">02</span></div><input class="file-input" type="file" id="testFile" accept=".csv,.xlsx,.xls"><div class="source-actions"><button class="btn" onclick="uploadTests()">Import results</button></div><div class="result" id="testStatus">Waiting for assessment results.</div></div></div></section>
-<section class="workflow"><div class="section-head"><div><h2>Screening pipeline</h2><p>One action coordinates the complete evaluation.</p></div></div><div class="workflow-track"><div class="step" id="step1"><div class="dot">1</div><h3>Resume processing</h3><p>Download and extract resume evidence.</p></div><div class="step" id="step2"><div class="dot">2</div><h3>AI + GitHub</h3><p>Evaluate JD fit and repositories in parallel.</p></div><div class="step" id="step3"><div class="dot">3</div><h3>Assessment</h3><p>Bring aptitude and coding performance into the score.</p></div><div class="step" id="step4"><div class="dot">4</div><h3>Rank candidates</h3><p>Produce the final evidence-based shortlist.</p></div></div><div class="run-row"><div class="progress"><span id="progressBar"></span></div><div class="run-status" id="pipelineStatus">Ready to screen.</div></div></section>
-<section class="results"><div class="results-head"><div><h2>Shortlist</h2><div class="results-note">AI fit 50% · GitHub 20% · assessment 30%</div></div><button class="btn light" onclick="refreshRanking()">Refresh</button></div><div class="table-wrap"><table><thead><tr><th>Rank</th><th>Candidate</th><th>AI fit</th><th>GitHub</th><th>Test</th><th>Final</th><th>Decision</th><th></th></tr></thead><tbody id="rankingBody"><tr><td colspan="8"><div class="empty"><strong>No shortlist yet</strong>Run the screening pipeline to generate ranked candidates.</div></td></tr></tbody></table></div></section>
-<div class="footer-note">Scores are derived from evidence available in the uploaded resume, public GitHub repositories and submitted assessment results. Missing evidence is not treated as positive evidence.</div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">CS</div>
+    <span>Candidate Screening Platform</span>
+  </div>
+
+  <div class="top-label">Recruiter Dashboard</div>
+</header>
+
+
+<main class="container">
+
+  <h1>Candidate Pipeline</h1>
+
+  <div class="subtitle">
+    AI-powered candidate evaluation and interview automation
+  </div>
+
+
+  <!-- PIPELINE -->
+
+  <section class="card pipeline">
+
+    <div class="job-row">
+
+      <div>
+        <div class="job-title" id="jobTitle">
+          AI Engineer
+        </div>
+
+        <div class="job-id">
+          Job ID: <span id="jobIdLabel">1</span>
+        </div>
+      </div>
+
+      <div class="muted">
+        End-to-end screening workflow
+      </div>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="btn primary"
+        onclick="processResumes()">
+        Process Resumes
+      </button>
+
+      <button
+        class="btn"
+        onclick="runEvaluation()">
+        Run AI Evaluation
+      </button>
+
+      <button
+        class="btn"
+        onclick="analyzeGithub()">
+        Analyze GitHub
+      </button>
+
+      <button
+        class="btn"
+        onclick="loadRankings()">
+        Refresh Ranking
+      </button>
+
+    </div>
+
+
+    <div id="pipelineStatus" class="status"></div>
+
+  </section>
+
+
+  <!-- UPLOADS -->
+
+  <section class="upload-grid">
+
+    <div class="card upload-card">
+
+      <h3>📥 Candidate Dataset</h3>
+
+      <p>
+        Upload the candidate CSV or XLSX dataset
+        to populate the screening pipeline.
+      </p>
+
+      <div class="file-row">
+
+        <input
+          id="candidateFile"
+          type="file"
+          accept=".csv,.xlsx,.xls"
+        />
+
+        <button
+          class="btn primary small"
+          onclick="uploadCandidates()">
+          Upload
+        </button>
+
+      </div>
+
+      <div
+        id="candidateUploadStatus"
+        class="status">
+      </div>
+
+    </div>
+
+
+    <div class="card upload-card">
+
+      <h3>🧪 Test Results</h3>
+
+      <p>
+        Upload logical aptitude and coding
+        test results in CSV or XLSX format.
+      </p>
+
+      <div class="file-row">
+
+        <input
+          id="testFile"
+          type="file"
+          accept=".csv,.xlsx,.xls"
+        />
+
+        <button
+          class="btn primary small"
+          onclick="uploadTestResults()">
+          Upload
+        </button>
+
+      </div>
+
+      <div
+        id="testUploadStatus"
+        class="status">
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- STATS -->
+
+  <section class="stats">
+
+    <div class="card stat">
+
+      <div class="stat-label">
+        Candidates Evaluated
+      </div>
+
+      <div
+        class="stat-value"
+        id="candidateCount">
+        —
+      </div>
+
+    </div>
+
+
+    <div class="card stat">
+
+      <div class="stat-label">
+        Shortlisted
+      </div>
+
+      <div
+        class="stat-value"
+        id="shortlistCount">
+        —
+      </div>
+
+    </div>
+
+
+    <div class="card stat">
+
+      <div class="stat-label">
+        Top Score
+      </div>
+
+      <div
+        class="stat-value"
+        id="topScore">
+        —
+      </div>
+
+    </div>
+
+
+    <div class="card stat">
+
+      <div class="stat-label">
+        Interviews
+      </div>
+
+      <div
+        class="stat-value"
+        id="interviewCount">
+        0
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MAIN -->
+
+  <section class="main-grid">
+
+
+    <!-- RANKINGS -->
+
+    <div class="card section">
+
+      <div class="section-header">
+
+        <div class="section-title">
+          Candidate Rankings
+        </div>
+
+        <div
+          class="muted"
+          id="rankingStatus">
+          Loading...
+        </div>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Rank</th>
+              <th>Candidate</th>
+              <th>AI</th>
+              <th>GitHub</th>
+              <th>Test</th>
+              <th>Final</th>
+              <th>Recommendation</th>
+            </tr>
+
+          </thead>
+
+
+          <tbody id="rankingBody">
+
+            <tr>
+
+              <td colspan="7">
+
+                <div class="empty">
+                  Loading rankings...
+                </div>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+
+    <!-- DETAILS -->
+
+    <div class="card section">
+
+      <div class="section-header">
+
+        <div class="section-title">
+          Candidate Details
+        </div>
+
+      </div>
+
+      <div
+        id="candidateDetails"
+        class="details">
+
+        <div class="empty">
+          Select a candidate to view details.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
 </main>
-<div class="modal" id="jobModal"><div class="modal-box"><div class="modal-head"><h2>Set hiring position</h2><button class="close" onclick="closeJobModal()">×</button></div><label>Position title</label><input type="text" id="jobTitle" placeholder="AI Engineer"><label>Job description</label><textarea id="jobDescription" placeholder="Paste the job description here..."></textarea><div class="modal-actions"><button class="btn light" onclick="closeJobModal()">Cancel</button><button class="btn terra" onclick="createJob()">Save position</button></div><div class="modal-status" id="jobStatus">Your job description drives the AI evaluation.</div></div></div>
-<div class="modal" id="interviewModal"><div class="modal-box"><div class="modal-head"><h2>Schedule interview</h2><button class="close" onclick="closeInterviewModal()">×</button></div><div class="modal-status" id="interviewCandidate"></div><label>Candidate email</label><input type="email" id="interviewEmail" readonly><label>Start</label><input type="datetime-local" id="interviewStart"><label>End</label><input type="datetime-local" id="interviewEnd"><div class="modal-actions"><button class="btn light" onclick="closeInterviewModal()">Cancel</button><button class="btn terra" onclick="scheduleInterview()">Create Meet interview</button></div><div class="modal-status" id="interviewStatus">Google Calendar will create the event and Meet link.</div></div></div>
+
+
+<!-- SCHEDULE MODAL -->
+
+<div
+  class="modal"
+  id="scheduleModal">
+
+  <div class="modal-card">
+
+    <h2>
+      Schedule Interview
+    </h2>
+
+    <div
+      class="muted"
+      id="scheduleCandidate">
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Start time
+      </label>
+
+      <input
+        id="startTime"
+        type="datetime-local"
+      />
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        End time
+      </label>
+
+      <input
+        id="endTime"
+        type="datetime-local"
+      />
+
+    </div>
+
+
+    <div class="modal-actions">
+
+      <button
+        class="btn"
+        onclick="closeSchedule()">
+        Cancel
+      </button>
+
+      <button
+        class="btn primary"
+        onclick="scheduleInterview()">
+        Create Google Meet
+      </button>
+
+    </div>
+
+
+    <div
+      id="scheduleStatus"
+      class="status">
+    </div>
+
+  </div>
+
+</div>
+
+
+<div
+  class="toast"
+  id="toast">
+</div>
+
+
 <script>
-const API=window.location.origin;let jobId=localStorage.getItem('cs_job_id');let jobTitle=localStorage.getItem('cs_job_title');let selected=null;let pollTimer=null;function $(id){return document.getElementById(id)}function status(id,text,type=''){const e=$(id);e.textContent=text;e.className='result'+(type?' '+type:'')}function modalStatus(id,text,type=''){const e=$(id);e.textContent=text;e.className='modal-status'+(type?' '+type:'')}async function api(url,opt={}){const r=await fetch(url,opt);let d=null;try{d=await r.json()}catch{}if(!r.ok)throw new Error(d?.detail||`HTTP ${r.status}: ${r.statusText}`);return d}function requireJob(){if(!jobId)throw new Error('Set a hiring position first.');return jobId}function openJobModal(){$('jobModal').style.display='flex'}function closeJobModal(){$('jobModal').style.display='none'}function openInterviewModal(c){selected=c;$('interviewCandidate').textContent=`${c.name||'Candidate'} · candidate #${c.id}`;$('interviewEmail').value=c.email||'';const s=new Date();s.setDate(s.getDate()+1);s.setHours(10,0,0,0);const e=new Date(s);e.setMinutes(e.getMinutes()+30);$('interviewStart').value=localDT(s);$('interviewEnd').value=localDT(e);$('interviewModal').style.display='flex'}function closeInterviewModal(){$('interviewModal').style.display='none'}function localDT(d){const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`}async function createJob(){const title=$('jobTitle').value.trim(),description=$('jobDescription').value.trim();if(!title||!description){modalStatus('jobStatus','Enter both a position title and job description.','err');return}modalStatus('jobStatus','Saving position...');try{const d=await api(`${API}/api/jobs`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,description})});jobId=String(d.id);jobTitle=d.title;localStorage.setItem('cs_job_id',jobId);localStorage.setItem('cs_job_title',jobTitle);updateJob();modalStatus('jobStatus',`Position #${jobId} saved.`,'ok');setTimeout(closeJobModal,500)}catch(e){modalStatus('jobStatus',`Could not save position: ${e.message}`,'err')}}function updateJob(){if(jobId){$('jobTitleDisplay').textContent=jobTitle||'Active position';$('jobMeta').textContent=`Position #${jobId} · ready for screening`}else{$('jobTitleDisplay').textContent='No position selected';$('jobMeta').textContent='Create a job description before starting the screening pipeline.'}}async function uploadCandidates(){const f=$('candidateFile').files[0];if(!f){status('candidateStatus','Choose a CSV or Excel file first.','err');return}const fd=new FormData();fd.append('file',f);status('candidateStatus','Importing candidate records...');try{const d=await api(`${API}/api/candidates/upload`,{method:'POST',body:fd});status('candidateStatus',`Imported ${d.imported??0} new records · ${d.skipped??0} skipped\n${JSON.stringify(d)}`,'ok');$('candidateCount').textContent=d.total_rows??d.imported??0}catch(e){status('candidateStatus',`Import failed: ${e.message}`,'err')}}async function uploadTests(){const f=$('testFile').files[0];if(!f){status('testStatus','Choose a CSV or Excel file first.','err');return}const fd=new FormData();fd.append('file',f);status('testStatus','Importing assessment results...');try{const d=await api(`${API}/api/test-results/upload`,{method:'POST',body:fd});status('testStatus',`Processed ${d.total_rows??0} result rows · ${d.created??0} created · ${d.updated??0} updated`,'ok')}catch(e){status('testStatus',`Import failed: ${e.message}`,'err')}}function setStep(n,state){const e=$(`step${n}`);e.classList.remove('active','done');if(state)e.classList.add(state)}function progress(v){$('progressBar').style.width=v+'%'}async function startScreening(){try{const id=requireJob();const b=$('runBtn');b.disabled=true;b.textContent='Screening…';progress(8);setStep(1,'active');$('pipelineStatus').textContent='Processing resumes…';const start=await api(`${API}/api/screening/run/${id}`,{method:'POST'});pollStatus(id)}catch(e){$('pipelineStatus').textContent=e.message;progress(0);$('runBtn').disabled=false;$('runBtn').textContent='Run screening'}}async function pollStatus(id){clearInterval(pollTimer);let attempts=0;async function check(){attempts++;try{const d=await api(`${API}/api/screening/run/${id}/status`);const s=d.status;if(s==='processing_resumes'){setStep(1,'active');$('pipelineStatus').textContent=d.message||'Processing resumes…';progress(25)}else if(s==='evaluating'){setStep(1,'done');setStep(2,'active');$('pipelineStatus').textContent=d.message||'AI and GitHub analysis running in parallel…';progress(60)}else if(s==='completed'){setStep(1,'done');setStep(2,'done');setStep(3,'done');setStep(4,'done');progress(100);$('pipelineStatus').textContent=d.message||'Screening completed.';if(d.rankings)renderRanking(d.rankings);else await refreshRanking();$('runBtn').disabled=false;$('runBtn').textContent='Run screening';clearInterval(pollTimer);return}else if(s==='failed'){$('pipelineStatus').textContent=d.message||'Screening failed.';progress(0);$('runBtn').disabled=false;$('runBtn').textContent='Run screening';clearInterval(pollTimer);return}else{$('pipelineStatus').textContent=d.message||'Starting screening…';progress(12)}if(attempts>240){$('pipelineStatus').textContent='The run is taking longer than expected. Refresh to check the result.';$('runBtn').disabled=false;$('runBtn').textContent='Run screening';clearInterval(pollTimer)}}catch(e){$('pipelineStatus').textContent=`Status check failed: ${e.message}`}}await check();pollTimer=setInterval(check,1500)}async function refreshRanking(){try{const id=requireJob();const d=await api(`${API}/api/screening/ranking/${id}`);renderRanking(d.rankings||[])}catch(e){$('pipelineStatus').textContent=e.message}}function renderRanking(rows){$('candidateCount').textContent=rows.length;$('evaluationCount').textContent=rows.filter(x=>x.ai_score!=null).length;$('githubCount').textContent=rows.filter(x=>x.github_score!=null).length;$('rankingCount').textContent=rows.length;const body=$('rankingBody');if(!rows.length){body.innerHTML='<tr><td colspan="8"><div class="empty"><strong>No shortlist yet</strong>Run the screening pipeline to generate ranked candidates.</div></td></tr>';return}body.innerHTML=rows.map((x,i)=>{const rec=String(x.recommendation||'borderline').toLowerCase();const cls=rec==='shortlist'?'shortlist':rec==='reject'?'reject':'borderline';const c=encodeURIComponent(JSON.stringify({id:x.candidate_id,name:x.candidate_name,email:x.email}));return `<tr><td><span class="rank">#${x.rank??i+1}</span></td><td><span class="candidate">${esc(x.candidate_name)}</span><span class="email">${esc(x.email||'')}</span></td><td class="score">${score(x.ai_score)}</td><td>${score(x.github_score)}</td><td>${score(x.test_score)}</td><td class="final">${score(x.final_score)}</td><td><span class="badge ${cls}">${esc(rec)}</span></td><td><button class="btn light" onclick="openInterviewEncoded('${c}')">Interview</button></td></tr>`}).join('')}function openInterviewEncoded(v){openInterviewModal(JSON.parse(decodeURIComponent(v)))}function score(v){return v==null?'—':Number(v).toFixed(1)}function esc(v){return String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;')}async function scheduleInterview(){if(!selected)return;const s=$('interviewStart').value,e=$('interviewEnd').value;if(!s||!e){modalStatus('interviewStatus','Choose both start and end times.','err');return}modalStatus('interviewStatus','Creating Calendar event and Google Meet link...');try{const q=new URLSearchParams({candidate_name:selected.name,candidate_email:selected.email,start_time:new Date(s).toISOString(),end_time:new Date(e).toISOString()});const d=await api(`${API}/api/calendar/schedule?${q}`,{method:'POST'});modalStatus('interviewStatus',`Interview scheduled successfully.\n\n${d.meet_link||'Google Meet created.'}`,'ok')}catch(err){modalStatus('interviewStatus',`Scheduling failed: ${err.message}`,'err')}}window.addEventListener('click',e=>{if(e.target===$('jobModal'))closeJobModal();if(e.target===$('interviewModal'))closeInterviewModal()});window.addEventListener('load',async()=>{updateJob();if(jobId){try{const d=await api(`${API}/api/screening/run/${jobId}/status`);if(d.status==='processing_resumes'||d.status==='evaluating'||d.status==='queued')pollStatus(jobId);else if(d.status==='completed'&&d.rankings)renderRanking(d.rankings)}catch{}}});
+
+  const JOB_ID = 1;
+
+  let rankings = [];
+
+  let selectedCandidate = null;
+
+  let scheduledInterviews = 0;
+
+
+  /* -----------------------------
+     UI HELPERS
+  ----------------------------- */
+
+  function setStatus(id, message, ok = false) {
+
+    const el = document.getElementById(id);
+
+    el.textContent = message || "";
+
+    el.className =
+      "status " +
+      (
+        ok
+          ? "ok"
+          : (
+              message &&
+              message.toLowerCase().includes("failed")
+                ? "err"
+                : ""
+            )
+      );
+  }
+
+
+  function toast(message) {
+
+    const el = document.getElementById("toast");
+
+    el.textContent = message;
+
+    el.classList.add("show");
+
+    setTimeout(
+      () => el.classList.remove("show"),
+      3500
+    );
+  }
+
+
+  async function parseResponse(response) {
+
+    const text = await response.text();
+
+    let data = {};
+
+    try {
+
+      data = text
+        ? JSON.parse(text)
+        : {};
+
+    } catch (_) {
+
+      data = {
+        detail: text
+      };
+
+    }
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.detail ||
+        data.message ||
+        `Request failed (${response.status})`
+      );
+
+    }
+
+
+    return data;
+  }
+
+
+  function numeric(value) {
+
+    return (
+      value === null ||
+      value === undefined ||
+      value === ""
+    )
+      ? null
+      : Number(value);
+
+  }
+
+
+  function formatScore(value) {
+
+    return value === null
+      ? "—"
+      : value.toFixed(1);
+
+  }
+
+
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replace(
+        /[&<>"']/g,
+        c => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        }[c])
+      );
+
+  }
+
+
+  /* -----------------------------
+     FILE UPLOAD
+  ----------------------------- */
+
+  async function uploadFile(
+    inputId,
+    endpoint,
+    statusId
+  ) {
+
+    const input =
+      document.getElementById(inputId);
+
+
+    if (!input.files.length) {
+
+      setStatus(
+        statusId,
+        "Please choose a CSV or XLSX file."
+      );
+
+      return;
+    }
+
+
+    const file = input.files[0];
+
+    const formData = new FormData();
+
+    formData.append("file", file);
+
+
+    setStatus(
+      statusId,
+      "Uploading..."
+    );
+
+
+    try {
+
+      const response =
+        await fetch(
+          endpoint,
+          {
+            method: "POST",
+            body: formData
+          }
+        );
+
+
+      const data =
+        await parseResponse(response);
+
+
+      const imported =
+        data.imported ??
+        data.created ??
+        0;
+
+      const updated =
+        data.updated ??
+        0;
+
+      const skipped =
+        data.skipped ??
+        0;
+
+      const total =
+        data.total_rows ??
+        data.total ??
+        "—";
+
+
+      setStatus(
+        statusId,
+        `Uploaded ${total} rows • imported/created: ${imported} • updated: ${updated} • skipped: ${skipped}`,
+        true
+      );
+
+
+      toast(
+        "Dataset uploaded successfully."
+      );
+
+
+      await loadRankings();
+
+    } catch (error) {
+
+      setStatus(
+        statusId,
+        `Failed: ${error.message}`
+      );
+
+      toast(
+        `Upload failed: ${error.message}`
+      );
+
+    }
+
+  }
+
+
+  function uploadCandidates() {
+
+    uploadFile(
+      "candidateFile",
+      "/api/candidates/upload",
+      "candidateUploadStatus"
+    );
+
+  }
+
+
+  function uploadTestResults() {
+
+    uploadFile(
+      "testFile",
+      "/api/test-results/upload",
+      "testUploadStatus"
+    );
+
+  }
+
+
+  /* -----------------------------
+     SCREENING PIPELINE
+  ----------------------------- */
+
+  async function processResumes() {
+
+    setStatus(
+      "pipelineStatus",
+      "Processing candidate resumes..."
+    );
+
+
+    try {
+
+      const response =
+        await fetch(
+          `/api/jobs/${JOB_ID}/process-resumes`,
+          {
+            method: "POST"
+          }
+        );
+
+
+      const data =
+        await parseResponse(response);
+
+
+      setStatus(
+        "pipelineStatus",
+        `Resume processing complete. Processed: ${data.processed ?? "—"} • Failed: ${data.failed ?? 0}`,
+        true
+      );
+
+
+      toast(
+        "Resume processing completed."
+      );
+
+
+      await loadRankings();
+
+    } catch (error) {
+
+      setStatus(
+        "pipelineStatus",
+        `Failed: ${error.message}`
+      );
+
+    }
+
+  }
+
+
+  async function runEvaluation() {
+
+    setStatus(
+      "pipelineStatus",
+      "AI evaluation queued. This runs in the background..."
+    );
+
+
+    try {
+
+      const response =
+        await fetch(
+          `/api/jobs/${JOB_ID}/evaluate`,
+          {
+            method: "POST"
+          }
+        );
+
+
+      const data =
+        await parseResponse(response);
+
+
+      setStatus(
+        "pipelineStatus",
+        `${data.message || "AI evaluation started."} Refresh rankings after processing finishes.`,
+        true
+      );
+
+
+      toast(
+        "AI evaluation started."
+      );
+
+    } catch (error) {
+
+      setStatus(
+        "pipelineStatus",
+        `Failed: ${error.message}`
+      );
+
+    }
+
+  }
+
+
+  async function analyzeGithub() {
+
+    setStatus(
+      "pipelineStatus",
+      "Analyzing candidate GitHub repositories..."
+    );
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/screening/github",
+          {
+            method: "POST"
+          }
+        );
+
+
+      const data =
+        await parseResponse(response);
+
+
+      const count =
+        data.analyzed ??
+        data.processed ??
+        data.total ??
+        "selected candidates";
+
+
+      setStatus(
+        "pipelineStatus",
+        `GitHub analysis completed for ${count} candidates.`,
+        true
+      );
+
+
+      toast(
+        "GitHub analysis completed."
+      );
+
+
+      await loadRankings();
+
+    } catch (error) {
+
+      setStatus(
+        "pipelineStatus",
+        `Failed: ${error.message}`
+      );
+
+    }
+
+  }
+
+
+  /* -----------------------------
+     RANKINGS
+  ----------------------------- */
+
+  async function loadRankings() {
+
+    document.getElementById(
+      "rankingStatus"
+    ).textContent = "Loading...";
+
+
+    try {
+
+      const response =
+        await fetch(
+          `/api/screening/ranking/${JOB_ID}`
+        );
+
+
+      const data =
+        await parseResponse(response);
+
+
+      rankings =
+        Array.isArray(data)
+          ? data
+          : (data.rankings || []);
+
+
+      renderRankings();
+
+
+      document.getElementById(
+        "rankingStatus"
+      ).textContent =
+        `${rankings.length} candidates`;
+
+    } catch (error) {
+
+      document.getElementById(
+        "rankingStatus"
+      ).textContent =
+        "Failed to load";
+
+
+      document.getElementById(
+        "rankingBody"
+      ).innerHTML = `
+        <tr>
+          <td colspan="7">
+            <div class="empty">
+              Unable to load rankings.
+              <br>
+              <small>
+                ${escapeHtml(error.message)}
+              </small>
+            </div>
+          </td>
+        </tr>
+      `;
+
+
+      document.getElementById(
+        "candidateCount"
+      ).textContent = "—";
+
+
+      document.getElementById(
+        "shortlistCount"
+      ).textContent = "—";
+
+
+      document.getElementById(
+        "topScore"
+      ).textContent = "—";
+
+    }
+
+  }
+
+
+  function renderRankings() {
+
+    const body =
+      document.getElementById(
+        "rankingBody"
+      );
+
+
+    if (!rankings.length) {
+
+      body.innerHTML = `
+        <tr>
+          <td colspan="7">
+            <div class="empty">
+              No candidate rankings yet.
+              <br>
+              Upload the candidate dataset to begin.
+            </div>
+          </td>
+        </tr>
+      `;
+
+
+      document.getElementById(
+        "candidateCount"
+      ).textContent = "0";
+
+
+      document.getElementById(
+        "shortlistCount"
+      ).textContent = "0";
+
+
+      document.getElementById(
+        "topScore"
+      ).textContent = "—";
+
+
+      return;
+    }
+
+
+    /*
+      Both SHORTLIST and STRONG_SHORTLIST
+      count as shortlisted candidates.
+    */
+
+    const shortlisted =
+      rankings.filter(
+        r => {
+
+          const decision =
+            String(
+              r.recommendation || ""
+            ).toLowerCase();
+
+          return (
+            decision === "shortlist" ||
+            decision === "strong_shortlist"
+          );
+
+        }
+      ).length;
+
+
+    const top =
+      numeric(
+        rankings[0].final_score
+      );
+
+
+    document.getElementById(
+      "candidateCount"
+    ).textContent =
+      rankings.length;
+
+
+    document.getElementById(
+      "shortlistCount"
+    ).textContent =
+      shortlisted;
+
+
+    document.getElementById(
+      "topScore"
+    ).textContent =
+      top === null
+        ? "—"
+        : top.toFixed(2);
+
+
+    body.innerHTML =
+      rankings.map(
+        (r, index) => {
+
+          const recommendation =
+            String(
+              r.recommendation ||
+              "pending"
+            ).toLowerCase();
+
+
+          const github =
+            numeric(
+              r.github_score
+            );
+
+
+          const test =
+            numeric(
+              r.test_score
+            );
+
+
+          const ai =
+            numeric(
+              r.ai_score
+            );
+
+
+          const finalScore =
+            numeric(
+              r.final_score
+            );
+
+
+          return `
+            <tr
+              class="candidate-row"
+              onclick="showCandidate(${index})"
+            >
+
+              <td class="rank">
+                #${r.rank ?? index + 1}
+              </td>
+
+
+              <td>
+
+                <div class="candidate-name">
+                  ${escapeHtml(
+                    r.candidate_name ||
+                    "Unknown"
+                  )}
+                </div>
+
+                <div class="muted">
+                  ${escapeHtml(
+                    r.email || ""
+                  )}
+                </div>
+
+              </td>
+
+
+              <td>
+                ${formatScore(ai)}
+              </td>
+
+
+              <td>
+                ${formatScore(github)}
+              </td>
+
+
+              <td>
+                ${formatScore(test)}
+              </td>
+
+
+              <td class="score">
+                ${formatScore(finalScore)}
+              </td>
+
+
+              <td>
+
+                <span
+                  class="badge ${recommendation}"
+                >
+                  ${escapeHtml(
+                    recommendation
+                  )}
+                </span>
+
+              </td>
+
+            </tr>
+          `;
+
+        }
+      ).join("");
+
+  }
+
+
+  /* -----------------------------
+     CANDIDATE DETAILS
+  ----------------------------- */
+
+  function showCandidate(index) {
+
+    selectedCandidate =
+      rankings[index];
+
+
+    const r =
+      selectedCandidate;
+
+
+    const ai =
+      numeric(
+        r.ai_score
+      );
+
+
+    const github =
+      numeric(
+        r.github_score
+      );
+
+
+    const test =
+      numeric(
+        r.test_score
+      );
+
+
+    const finalScore =
+      numeric(
+        r.final_score
+      );
+
+
+    const recommendation =
+      String(
+        r.recommendation ||
+        "pending"
+      ).toLowerCase();
+
+
+    /*
+      ONLY shortlisted candidates
+      are allowed to schedule interviews.
+    */
+
+    const canInterview =
+      recommendation === "shortlist" ||
+      recommendation === "strong_shortlist";
+
+
+    const interviewSection =
+      canInterview
+
+        ? `
+          <div class="detail-group">
+
+            <h4>
+              Interview
+            </h4>
+
+            <button
+              class="btn primary small"
+              onclick="openSchedule()"
+            >
+              Schedule interview + Google Meet
+            </button>
+
+          </div>
+        `
+
+        : `
+          <div class="detail-group">
+
+            <h4>
+              Interview
+            </h4>
+
+            <div class="muted">
+              Interview scheduling is available
+              only for shortlisted candidates.
+            </div>
+
+          </div>
+        `;
+
+
+    document.getElementById(
+      "candidateDetails"
+    ).innerHTML = `
+
+      <div class="candidate-header">
+
+        <div>
+
+          <h2>
+            ${escapeHtml(
+              r.candidate_name ||
+              "Unknown"
+            )}
+          </h2>
+
+          <div class="muted">
+            ${escapeHtml(
+              r.email || ""
+            )}
+          </div>
+
+        </div>
+
+
+        <span
+          class="badge ${recommendation}"
+        >
+          ${escapeHtml(
+            recommendation
+          )}
+        </span>
+
+      </div>
+
+
+      <div class="score-block">
+
+        ${scoreBar(
+          "Final Score",
+          finalScore
+        )}
+
+        ${scoreBar(
+          "AI Evaluation",
+          ai
+        )}
+
+        ${scoreBar(
+          "GitHub",
+          github
+        )}
+
+        ${scoreBar(
+          "Test Performance",
+          test
+        )}
+
+      </div>
+
+
+      <div class="detail-group">
+
+        <h4>
+          Ranking
+        </h4>
+
+        <div>
+          Rank:
+          <strong>
+            #${r.rank ?? "—"}
+          </strong>
+        </div>
+
+        <div>
+          Final score:
+          <strong>
+            ${formatScore(finalScore)}
+          </strong>
+        </div>
+
+      </div>
+
+
+      ${interviewSection}
+
+    `;
+
+  }
+
+
+  function scoreBar(
+    label,
+    value
+  ) {
+
+    const shown =
+      value === null
+        ? "N/A"
+        : value.toFixed(2);
+
+
+    const width =
+      value === null
+        ? 0
+        : Math.max(
+            0,
+            Math.min(
+              100,
+              value
+            )
+          );
+
+
+    return `
+
+      <div
+        style="margin-bottom:14px"
+      >
+
+        <div class="score-line">
+
+          <span>
+            ${label}
+          </span>
+
+          <strong>
+            ${shown}
+          </strong>
+
+        </div>
+
+
+        <div class="bar">
+
+          <div
+            style="width:${width}%"
+          ></div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  /* -----------------------------
+     INTERVIEW SCHEDULING
+  ----------------------------- */
+
+  function openSchedule() {
+
+    if (!selectedCandidate) {
+      return;
+    }
+
+
+    document.getElementById(
+      "scheduleCandidate"
+    ).textContent =
+
+      `${selectedCandidate.candidate_name || ""}
+       •
+       ${selectedCandidate.email || ""}`;
+
+
+    document.getElementById(
+      "scheduleStatus"
+    ).textContent = "";
+
+
+    document.getElementById(
+      "scheduleModal"
+    ).classList.add("open");
+
+
+    const now =
+      new Date();
+
+
+    const end =
+      new Date(
+        now.getTime() +
+        30 * 60000
+      );
+
+
+    document.getElementById(
+      "startTime"
+    ).value =
+      toLocalInput(now);
+
+
+    document.getElementById(
+      "endTime"
+    ).value =
+      toLocalInput(end);
+
+  }
+
+
+  function closeSchedule() {
+
+    document.getElementById(
+      "scheduleModal"
+    ).classList.remove("open");
+
+  }
+
+
+  function toLocalInput(date) {
+
+    const pad =
+      n =>
+        String(n)
+          .padStart(2, "0");
+
+
+    return (
+      `${date.getFullYear()}-` +
+      `${pad(date.getMonth() + 1)}-` +
+      `${pad(date.getDate())}T` +
+      `${pad(date.getHours())}:` +
+      `${pad(date.getMinutes())}`
+    );
+
+  }
+
+
+  async function scheduleInterview() {
+
+    if (!selectedCandidate) {
+      return;
+    }
+
+
+    /*
+      Backend protection in the UI:
+      don't allow interview scheduling
+      for BORDERLINE or REJECT.
+    */
+
+    const recommendation =
+      String(
+        selectedCandidate.recommendation ||
+        ""
+      ).toLowerCase();
+
+
+    const canInterview =
+      recommendation === "shortlist" ||
+      recommendation === "strong_shortlist";
+
+
+    if (!canInterview) {
+
+      setStatus(
+        "scheduleStatus",
+        "Interview scheduling is available only for shortlisted candidates."
+      );
+
+      return;
+    }
+
+
+    const start =
+      document.getElementById(
+        "startTime"
+      ).value;
+
+
+    const end =
+      document.getElementById(
+        "endTime"
+      ).value;
+
+
+    if (!start || !end) {
+
+      setStatus(
+        "scheduleStatus",
+        "Please choose both start and end times."
+      );
+
+      return;
+    }
+
+
+    const startISO =
+      new Date(start)
+        .toISOString();
+
+
+    const endISO =
+      new Date(end)
+        .toISOString();
+
+
+    setStatus(
+      "scheduleStatus",
+      "Creating Google Calendar event and Meet link..."
+    );
+
+
+    try {
+
+      const params =
+        new URLSearchParams({
+
+          candidate_name:
+            selectedCandidate.candidate_name || "",
+
+          candidate_email:
+            selectedCandidate.email || "",
+
+          start_time:
+            startISO,
+
+          end_time:
+            endISO
+
+        });
+
+
+      const response =
+        await fetch(
+          `/api/calendar/schedule?${params.toString()}`,
+          {
+            method: "POST"
+          }
+        );
+
+
+      const data =
+        await parseResponse(
+          response
+        );
+
+
+      setStatus(
+        "scheduleStatus",
+        `Interview created. Meet: ${data.meet_link || "created"}`,
+        true
+      );
+
+
+      scheduledInterviews += 1;
+
+
+      document.getElementById(
+        "interviewCount"
+      ).textContent =
+        scheduledInterviews;
+
+
+      toast(
+        "Interview scheduled successfully."
+      );
+
+    } catch (error) {
+
+      setStatus(
+        "scheduleStatus",
+        `Failed: ${error.message}`
+      );
+
+    }
+
+  }
+
+
+  /* -----------------------------
+     INITIAL LOAD
+  ----------------------------- */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    loadRankings
+  );
+
 </script>
+
 </body>
 </html>
